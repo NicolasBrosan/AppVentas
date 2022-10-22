@@ -10,8 +10,9 @@ namespace Domain
         public string Nombre { get; set; }
         public string Autor { get; set; }
         public string Editorial { get; set; }
-        public string Descripcion { get; set; }
+        public string Sinopsis { get; set; }
         public decimal Precio { get; set; }
         public int Stock { get; set; }
+        public int IdUsuario { get; set; }
     }
 }
