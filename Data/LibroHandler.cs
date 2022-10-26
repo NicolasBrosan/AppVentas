@@ -7,6 +7,6 @@ namespace Data
 {
     public class LibroHandler
     {
-        //SqlConnection connection = new SqlConnection(connectionString);
+        
     }
 }

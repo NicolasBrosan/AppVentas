@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -19,21 +17,7 @@ namespace AppVentasFer
 
         private void button1_Click(object sender, EventArgs e)
         {
-            try
-            {
-                var connection = ConfigurationManager.ConnectionStrings["myConnection"].ConnectionString;
-                
-                using(SqlConnection conexion = new SqlConnection(connection))
-                {
-                    conexion.Open();
-                    MessageBox.Show("Conexion realizada");
-                    conexion.Close();
-                }
-            }
-            catch
-            {
-                MessageBox.Show("No se pudo conectar");
-            }
+            
         }
     }
 }
