@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain.Negocio
 {
-    public class Libros
+    public class Libro
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
