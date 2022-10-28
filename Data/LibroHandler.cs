@@ -104,10 +104,10 @@ namespace Data
                     conexion.Open();
                     foreach(var query in Querys)
                     {
-                        SqlParameter sqlParameter = new SqlParameter("id",      System.Data.SqlDbType.BigInt);
+                        SqlParameter sqlParameter = new SqlParameter("id", System.Data.SqlDbType.BigInt);
                         sqlParameter.Value = id;
 
-                        using(SqlCommand cmd = new SqlCommand(query,                  conexion))
+                        using(SqlCommand cmd = new SqlCommand(query, conexion))
                         {
                             cmd.Parameters.Add(sqlParameter);
                             int numberOfRows = cmd.ExecuteNonQuery();
@@ -144,17 +144,26 @@ namespace Data
                                     Libro libro = new Libro();
                                     libro.Id = Convert.ToInt32(reader["Id"]);
                                     libro.Nombre = reader["Nombre"].ToString();
+                                    libro.Autor = reader["Autor"].ToString();
+                                    libro.Editorial = reader["Editorial"].ToString();
+                                    libro.Sinopsis = reader["Sinopsis"].ToString();
+                                    libro.Precio = Convert.ToDecimal(reader["Precio"]);
+                                    libro.Stock = Convert.ToInt32(reader["Stock"]);
+                                    libro.IdUsuario = Convert.ToInt32(reader["IdUsuario"]);
 
+                                    libros.Add(libro);
                                 }
                             }
                         }
                     }
+                    conexion.Close();
                 }
                 catch (Exception)
                 {
-
-                    
+                    Console.WriteLine("No es posible traer la informacion");                    
                 }
+
+                return libros;
             }
 
         }
