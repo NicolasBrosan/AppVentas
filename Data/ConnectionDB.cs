@@ -14,6 +14,6 @@ namespace Data
             connection = ConfigurationManager.ConnectionStrings[DB].ConnectionString;
             return connection;
         }
-        
+
     }
 }

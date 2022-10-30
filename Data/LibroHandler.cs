@@ -2,14 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using Data.Interface;
 
 namespace Data
 {
-    public class LibroHandler
-    {        
-        public static void CreateLibro(Libro libro)
-        {
-            ConnectionDB cnn = new ConnectionDB();
+    public class LibroHandler : ICrud<Libro>
+    {
+        ConnectionDB cnn = new ConnectionDB();
+        public void Insert(Libro libro)
+        {            
             using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
             {
                 try
@@ -46,9 +47,9 @@ namespace Data
             }
         }
 
-        public static void UpdateLibro (Libro libro)
+        public void Update (Libro libro)
         {
-            ConnectionDB cnn = new ConnectionDB();
+            
             using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
             {
                 try
@@ -86,9 +87,9 @@ namespace Data
                 }
             }
         }
-        public static void DeleteLibro (int id)
+        public void Delete (int id)
         {
-            ConnectionDB cnn = new ConnectionDB();
+            
             using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
             {
                 try
@@ -123,9 +124,9 @@ namespace Data
 
             }
         }
-        public static List<Libro> GetLibros()
+        public List<Libro> Get()
         {
-            ConnectionDB cnn = new ConnectionDB();
+            
             List<Libro> libros = new List<Libro>();
             using(SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
             {
