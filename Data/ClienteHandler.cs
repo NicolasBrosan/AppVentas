@@ -13,7 +13,7 @@ namespace Data
         ConnectionDB cnn = new ConnectionDB();
         public void Insert(Cliente cliente)
         {
-            using(SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
+            using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
             {
                 try
                 {
@@ -28,7 +28,7 @@ namespace Data
                     SqlParameter tarjeta = new SqlParameter("Tarjeta", System.Data.SqlDbType.BigInt) { Value = cliente.Tarjeta };
 
                     conexion.Open();
-                    using(SqlCommand cmd = new SqlCommand(query, conexion))
+                    using (SqlCommand cmd = new SqlCommand(query, conexion))
                     {
                         cmd.Parameters.Add(nombre);
                         cmd.Parameters.Add(apellido);
@@ -43,7 +43,7 @@ namespace Data
 
                     conexion.Close();
                 }
-                catch (Exception)                                  
+                catch (Exception)
                 {
                     Console.WriteLine("No se pudo insertar los datos");
                 }
@@ -52,7 +52,7 @@ namespace Data
 
         public void Update(Cliente cliente)
         {
-           using(SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
+            using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
             {
                 try
                 {
@@ -69,7 +69,7 @@ namespace Data
                     SqlParameter id = new SqlParameter("id", System.Data.SqlDbType.Int) { Value = cliente.Id };
 
                     conexion.Open();
-                    using(SqlCommand cmd = new SqlCommand(queryUpCliente, conexion))
+                    using (SqlCommand cmd = new SqlCommand(queryUpCliente, conexion))
                     {
                         cmd.Parameters.Add(nombre);
                         cmd.Parameters.Add(apellido);
@@ -95,7 +95,7 @@ namespace Data
 
         public void Delete(int id)
         {
-            using(SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
+            using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
             {
                 try
                 {
@@ -105,7 +105,7 @@ namespace Data
 
                     conexion.Open();
 
-                    using(SqlCommand cmd = new SqlCommand(queryDelCliente, conexion))
+                    using (SqlCommand cmd = new SqlCommand(queryDelCliente, conexion))
                     {
                         cmd.Parameters.Add(sqlParameter);
                         int NumberOfRows = cmd.ExecuteNonQuery();
@@ -115,32 +115,33 @@ namespace Data
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("No se pudo eliminar el cliente");                    
+                    Console.WriteLine("No se pudo eliminar el cliente");
                 }
             }
         }
 
-        public List<Cliente> Get(string nombre, string apellido)
+        public List<Cliente> Get()
         {
-            using(SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
+            var clientes = new List<Cliente>();
+
+            using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
             {
                 try
                 {
-                    var queryGetCliente = "SELECT * FROM Cliente WHERE Nombre = @nombre AND Apellido = @apellido";
-                    
-                    using(SqlCommand cmd = new SqlCommand(queryGetCliente, conexion))
+                    var queryGetCliente = "SELECT * FROM Cliente";
+
+                    using (SqlCommand cmd = new SqlCommand(queryGetCliente, conexion))
                     {
                         conexion.Open();
 
-                        cmd.Parameters.Add(new SqlParameter("Nombre", SqlDbType.VarChar) { Value = nombre});
-                        cmd.Parameters.Add(new SqlParameter("Apellido", SqlDbType.VarChar) { Value = apellido});
-                        using(SqlDataReader reader = cmd.ExecuteReader())
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             if (reader.HasRows)
                             {
-                                Cliente cliente = new Cliente();
+
                                 while (reader.Read())
                                 {
+                                    var cliente = new Cliente();
                                     cliente.Id = Convert.ToInt32(reader["Id"]);
                                     cliente.Nombre = reader["Nombre"].ToString();
                                     cliente.Apellido = reader["Apellido"].ToString();
@@ -149,15 +150,20 @@ namespace Data
                                     cliente.Localidad = reader["Localidad"].ToString();
                                     cliente.Provincia = reader["Provincia"].ToString();
                                     cliente.Tarjeta = Convert.ToInt32(reader["Tarjeta"]);
+
+                                    clientes.Add(cliente);
                                 }
-                                return cliente;
                             }
+
                         }
+                        conexion.Close();
+
+                        return clientes;
                     }
                 }
                 catch (Exception)
                 {
-                                        
+                    return null;
                 }
             }
         }
