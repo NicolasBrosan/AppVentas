@@ -15,7 +15,7 @@ namespace Data
             var idVentas = 0;
             try
             {
-                using(SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
+                using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
                 {
                     var queryVenta = "INSERT INTO Venta (Comentarios, IdUsuario) VALUES (@comentarios, @idUsuario)";
 
@@ -24,7 +24,7 @@ namespace Data
 
                     conexion.Open();
 
-                    using(SqlCommand cmd = new SqlCommand(queryVenta, conexion))
+                    using (SqlCommand cmd = new SqlCommand(queryVenta, conexion))
                     {
                         cmd.Parameters.Add(comentarios);
                         cmd.Parameters.Add(idUsuario);
@@ -34,15 +34,15 @@ namespace Data
 
                     //Ordenar desde la primera compra a la ultima. VER SI FUNCIONA ASI
                     var queryIdVenta = "SELECT TOP (1) Id FROM Venta ORDER BY Id Desc ";
-                    using(SqlCommand cmdOrderBy = new SqlCommand(queryIdVenta, conexion))
+                    using (SqlCommand cmdOrderBy = new SqlCommand(queryIdVenta, conexion))
                     {
-                        using(SqlDataReader reader = cmdOrderBy.ExecuteReader())
+                        using (SqlDataReader reader = cmdOrderBy.ExecuteReader())
                         {
                             if (reader.HasRows)
                             {
                                 while (reader.Read())
                                 {
-                                    //var IdVentas = 0;
+                                    //var IdVentas = 0; --- ERROR AL HACER ESTO
                                     idVentas = Convert.ToInt32(reader["Id"]);
                                 }
                             }
@@ -50,7 +50,7 @@ namespace Data
                     }
 
                     //Se recorre la lista de Libro para insertar la venta en ProductoVendido
-                    foreach(var libroVendido in libro)
+                    foreach (var libroVendido in libro)
                     {
                         var queryLibroVendido = "INSERT INTO ProductoVendido (IdLibro, Stock, IdVenta) VALUES (@idLibro, @stock, @idVenta)";
 
@@ -58,7 +58,7 @@ namespace Data
                         SqlParameter stock = new SqlParameter("Stock", System.Data.SqlDbType.BigInt) { Value = libroVendido.Stock };
                         SqlParameter idVenta = new SqlParameter("IdVenta", System.Data.SqlDbType.BigInt) { Value = idVentas };
 
-                        using(SqlCommand cmd = new SqlCommand(queryLibroVendido, conexion))
+                        using (SqlCommand cmd = new SqlCommand(queryLibroVendido, conexion))
                         {
                             cmd.Parameters.Add(idLibro);
                             cmd.Parameters.Add(stock);
@@ -73,7 +73,7 @@ namespace Data
                         SqlParameter id = new SqlParameter("Id", System.Data.SqlDbType.BigInt) { Value = libroVendido.Id };
                         SqlParameter stockVendido = new SqlParameter("Stock", System.Data.SqlDbType.BigInt) { Value = libroVendido.Stock };
 
-                        using(SqlCommand cmd = new SqlCommand(queryUpdateStock, conexion))
+                        using (SqlCommand cmd = new SqlCommand(queryUpdateStock, conexion))
                         {
                             cmd.Parameters.Add(id);
                             cmd.Parameters.Add(stockVendido);
@@ -89,6 +89,30 @@ namespace Data
             catch (Exception)
             {
                 Console.WriteLine("No se pudo realizar la operacion");
+            }
+        }
+
+        public void DeleteVenta(int id)
+        {
+            try
+            {
+                using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
+                {
+                    var queryDeleteVenta = "DELETE FROM Venta WHERE Id = @id";
+                    SqlParameter Id = new SqlParameter("Id", System.Data.SqlDbType.BigInt) { Value = id };
+
+                    conexion.Open();
+                    using (SqlCommand cmd = new SqlCommand(queryDeleteVenta, conexion))
+                    {
+                        cmd.Parameters.Add(Id);
+                        int numberOfRows = cmd.ExecuteNonQuery();
+                    }
+                    conexion.Close();
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("No se ha podido eliminar");
             }
         }
     }
