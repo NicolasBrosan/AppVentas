@@ -43,9 +43,9 @@ namespace Data
 
                     conexion.Close();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    Console.WriteLine("No se pudo insertar los datos");
+                    Console.WriteLine($"No se pudo insertar los datos: {ex.Message}");
                 }
             }
         }
@@ -86,9 +86,9 @@ namespace Data
                     conexion.Close();
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    Console.WriteLine("No se pudo actualizar");
+                    Console.WriteLine($"No se pudo actualizar: {ex.Message}");
                 }
             }
         }
@@ -113,9 +113,9 @@ namespace Data
 
                     conexion.Close();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    Console.WriteLine("No se pudo eliminar el cliente");
+                    Console.WriteLine($"No se pudo eliminar el cliente: {ex.Message}");
                 }
             }
         }

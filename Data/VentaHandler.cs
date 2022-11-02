@@ -86,9 +86,9 @@ namespace Data
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Console.WriteLine("No se pudo realizar la operacion");
+                Console.WriteLine($"No se pudo realizar la operacion: {ex.Message}");
             }
         }
 
@@ -98,6 +98,7 @@ namespace Data
             {
                 using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
                 {
+                    //Se elimina la venta realizada (venta cancelada)
                     var queryDeleteVenta = "DELETE FROM Venta WHERE Id = @id";
                     SqlParameter Id = new SqlParameter("Id", System.Data.SqlDbType.BigInt) { Value = id };
 
@@ -107,12 +108,72 @@ namespace Data
                         cmd.Parameters.Add(Id);
                         int numberOfRows = cmd.ExecuteNonQuery();
                     }
+
+                    //Se elimina la venta cancelada en ProductoVendido
+                    List<ProductoVendido> listaPV = new List<ProductoVendido>();
+                    string queryDeletePV = "DELETE FROM ProductoVendido WHERE IdVenta = @IdVenta";
+                    var sqlIdVenta = new SqlParameter("IdVenta", System.Data.SqlDbType.BigInt) { Value = id};
+
+                    conexion.Open();
+                    using(SqlCommand cmd = new SqlCommand(queryDeletePV, conexion))
+                    {
+                        cmd.Parameters.Add(sqlIdVenta);
+
+                        //Si se ejecuta la eliminacion, entonces me tiene que traer la info del libro que se cancelo la venta
+                        using(SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                while (reader.Read())
+                                {
+                                    ProductoVendido pV = new ProductoVendido();
+                                    pV.Id = Convert.ToInt32(reader["Id"]);
+                                    pV.Stock = Convert.ToInt32(reader["Stock"]);
+                                    pV.IdVenta = Convert.ToInt32(reader["IdVenta"]);
+                                    pV.IdLibro = Convert.ToInt32(reader["IdLibro"]);
+
+                                    listaPV.Add(pV);
+                                }
+                            }
+                        }
+                    }
+
+                    //Recorro la lista de los PVs y agrego a la clase Libro, la venta cancelada (le sumo el stock)
+                    foreach (var ventaLibro in listaPV)
+                    {
+                        var queryLibro = "UPDATE Libro SET Stock = (Stock + @Stock) WHERE Id = @Id";
+                        var stockAgregado = new SqlParameter("Stock", System.Data.SqlDbType.BigInt) { Value = ventaLibro.Stock };
+                        var idDetalleLibro = new SqlParameter("Id", System.Data.SqlDbType.BigInt) { Value = ventaLibro.IdLibro };
+                        SqlParameter[] parameterPV = new SqlParameter[] { stockAgregado, idDetalleLibro };
+
+                        using(SqlCommand cmdParameter = new SqlCommand(queryLibro, conexion))
+                        {
+                            //Adhiero conjuntamente las variables {stockAgregago} y {idDetalleLibro} al array [parameterPV]
+                            cmdParameter.Parameters.AddRange(parameterPV);
+
+                            int numberOfRows = cmdParameter.ExecuteNonQuery();
+                        }
+
+                    }
+
+                    //Elimino definitivamente la venta cancelada en PV
+                    var queryDelPV = "DELETE FROM ProductoVendido WHERE Id = @Id";
+                    var sqlPV = new SqlParameter("Id", System.Data.SqlDbType.BigInt) { Value = id };
+
+                    using(SqlCommand cmd = new SqlCommand(queryDelPV, conexion))
+                    {
+                        cmd.Parameters.Add(sqlPV);
+
+                        int numberOfRows = cmd.ExecuteNonQuery();
+                    }
+
                     conexion.Close();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Console.WriteLine("No se ha podido eliminar");
+
+                Console.WriteLine($"No se ha podido eliminar: {ex.Message}");
             }
         }
     }
