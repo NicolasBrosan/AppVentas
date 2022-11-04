@@ -46,6 +46,46 @@ namespace Data
             
         } 
 
+        public Usuario LoginUsuario(string password, string mail)
+        {
+           var usuario = new Usuario();
+            using(SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
+            {                                           
+                try
+                {
+                    var queryLogin = "SELECT * FROM Usuario WHERE Mail = @mail AND Password = @password";
 
+                    conexion.Open();
+                    
+                    using(SqlCommand cmdLogin = new SqlCommand(queryLogin, conexion))
+                    {
+                        cmdLogin.Parameters.Add(new SqlParameter("Mail", System.Data.SqlDbType.VarChar) { Value = mail });
+                        cmdLogin.Parameters.Add(new SqlParameter("Password", System.Data.SqlDbType.VarChar) { Value = password });
+                        cmdLogin.ExecuteNonQuery();
+
+                        using(SqlDataReader reader = cmdLogin.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                while (reader.Read())
+                                {
+                                    usuario.Id = Convert.ToInt32(reader["Id"]);
+                                    usuario.Mail = reader["Mail"].ToString();
+                                    usuario.Password = reader["Password"].ToString();
+                                }
+                            }
+                        }
+                    }
+                    conexion.Close();
+
+                    return usuario;
+                }
+                catch (Exception)
+                {
+                    usuario.Mail = "El mail o la contraseña es incorrecta";
+                    return usuario;                   
+                }
+            }
+        }
     }
 }
