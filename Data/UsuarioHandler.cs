@@ -24,7 +24,7 @@ namespace Data
                     var idCliente = new SqlParameter("IdCliente", System.Data.SqlDbType.Int) { Value = usuario.IdCliente };
 
                     conexion.Open();
-
+                    
                     using (SqlCommand cmd = new SqlCommand(queryInsertUsuario, conexion))
                     {
                         cmd.Parameters.Add(password);
@@ -87,5 +87,7 @@ namespace Data
                 }
             }
         }
+
+       
     }
 }
