@@ -23,8 +23,7 @@ namespace Data
                     SqlParameter sinopsis = new SqlParameter("Sinopsis", System.Data.SqlDbType.VarChar) { Value = libro.Sinopsis };
                     SqlParameter precio = new SqlParameter("Precio", System.Data.SqlDbType.Decimal) { Value = libro.Precio };
                     SqlParameter stock = new SqlParameter("Stock", System.Data.SqlDbType.Int) { Value = libro.Stock };
-                    SqlParameter idUsuario = new SqlParameter("IdUsuario", System.Data.SqlDbType.Int) { Value = libro.IdUsuario };
-
+                    
                     conexion.Open();
                     using (SqlCommand cmd = new SqlCommand(queryLibro, conexion))
                     {
@@ -34,7 +33,6 @@ namespace Data
                         cmd.Parameters.Add(sinopsis);
                         cmd.Parameters.Add(precio);
                         cmd.Parameters.Add(stock);
-                        cmd.Parameters.Add(idUsuario);
 
                         int numberOfRows = cmd.ExecuteNonQuery();
                     }
