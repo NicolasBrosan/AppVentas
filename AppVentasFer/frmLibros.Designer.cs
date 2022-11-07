@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tlpRegistro = new System.Windows.Forms.TableLayoutPanel();
             this.txtSinopsis = new System.Windows.Forms.TextBox();
             this.txtStock = new System.Windows.Forms.TextBox();
@@ -45,7 +46,19 @@
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnBorrar = new System.Windows.Forms.Button();
+            this.errorNombre = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorAutor = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorEditorial = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorPrecio = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorStock = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorSinopsis = new System.Windows.Forms.ErrorProvider(this.components);
             this.tlpRegistro.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorNombre)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorAutor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorEditorial)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorPrecio)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorStock)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorSinopsis)).BeginInit();
             this.SuspendLayout();
             // 
             // tlpRegistro
@@ -81,6 +94,7 @@
             this.tlpRegistro.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18.91892F));
             this.tlpRegistro.Size = new System.Drawing.Size(986, 429);
             this.tlpRegistro.TabIndex = 0;
+            this.tlpRegistro.Paint += new System.Windows.Forms.PaintEventHandler(this.tlpRegistro_Paint);
             // 
             // txtSinopsis
             // 
@@ -262,6 +276,30 @@
             this.btnBorrar.Text = "Borrar";
             this.btnBorrar.UseVisualStyleBackColor = true;
             // 
+            // errorNombre
+            // 
+            this.errorNombre.ContainerControl = this;
+            // 
+            // errorAutor
+            // 
+            this.errorAutor.ContainerControl = this;
+            // 
+            // errorEditorial
+            // 
+            this.errorEditorial.ContainerControl = this;
+            // 
+            // errorPrecio
+            // 
+            this.errorPrecio.ContainerControl = this;
+            // 
+            // errorStock
+            // 
+            this.errorStock.ContainerControl = this;
+            // 
+            // errorSinopsis
+            // 
+            this.errorSinopsis.ContainerControl = this;
+            // 
             // frmLibros
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
@@ -275,6 +313,12 @@
             this.Load += new System.EventHandler(this.frmLibros_Load);
             this.tlpRegistro.ResumeLayout(false);
             this.tlpRegistro.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorNombre)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorAutor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorEditorial)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorPrecio)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorStock)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorSinopsis)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -298,5 +342,11 @@
         private System.Windows.Forms.TextBox txtCodigo;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Button btnBorrar;
+        private System.Windows.Forms.ErrorProvider errorNombre;
+        private System.Windows.Forms.ErrorProvider errorAutor;
+        private System.Windows.Forms.ErrorProvider errorEditorial;
+        private System.Windows.Forms.ErrorProvider errorPrecio;
+        private System.Windows.Forms.ErrorProvider errorStock;
+        private System.Windows.Forms.ErrorProvider errorSinopsis;
     }
 }

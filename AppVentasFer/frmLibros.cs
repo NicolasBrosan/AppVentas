@@ -43,19 +43,15 @@ namespace AppVentasFer
             libro.Stock = Convert.ToInt32(txtStock.Text);
             libro.Sinopsis = txtSinopsis.Text;
 
+            ValidarNulo();
+            
+            
+
             var librosService = new LibrosService();
             librosService.GuardarLibro(libro);
 
-            //Ver codigo para que no pueda guardar la info si hay
-            //algun dato nulo.
-            if(libro != null)
-            {
-                Limpiar();
-            }
-            else
-            {
-                Console.WriteLine("Error al ingresar datos del libro");
-            }
+            
+            Limpiar();
             
         }
 
@@ -69,6 +65,47 @@ namespace AppVentasFer
             txtPrecio.Text = string.Empty;
             txtSinopsis.Text = string.Empty;
             txtStock.Text = string.Empty;
+        }
+                                      
+        private bool ValidarNulo()
+        {
+            bool validar = true;
+            if(txtNombre.Text == "")
+            {
+                validar = false;
+                errorNombre.SetError(txtNombre, "Ingresar un nombre");
+            }
+            if (txtAutor.Text == "")
+            {
+                validar = false;
+                errorAutor.SetError(txtAutor, "Ingresar un autor");
+            }
+            if (txtEditorial.Text == "")
+            {
+                validar = false;
+                errorEditorial.SetError(txtNombre, "Ingresar una editorial");
+            }
+            if (txtPrecio.Text == "")
+            {
+                validar = false;
+                errorPrecio.SetError(txtNombre, "Ingresar el monto");
+            }
+            if (txtStock.Text == "")
+            {
+                validar = false;
+                errorStock.SetError(txtNombre, "Ingresar el stock");
+            }
+            if (txtSinopsis.Text == "")
+            {
+                validar = false;
+                errorSinopsis.SetError(txtNombre, "Ingresar descripcion");
+            }
+            return validar;
+        }
+
+        private void tlpRegistro_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
