@@ -10,7 +10,7 @@ namespace Data
     {
         ConnectionDB cnn = new ConnectionDB();
         public void Insert(Libro libro)
-        {            
+        {
             using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
             {
                 try
@@ -23,7 +23,7 @@ namespace Data
                     SqlParameter sinopsis = new SqlParameter("Sinopsis", System.Data.SqlDbType.VarChar) { Value = libro.Sinopsis };
                     SqlParameter precio = new SqlParameter("Precio", System.Data.SqlDbType.Decimal) { Value = libro.Precio };
                     SqlParameter stock = new SqlParameter("Stock", System.Data.SqlDbType.Int) { Value = libro.Stock };
-                    
+
                     conexion.Open();
                     using (SqlCommand cmd = new SqlCommand(queryLibro, conexion))
                     {
@@ -40,14 +40,14 @@ namespace Data
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"No se pudo insertar los datos: {ex.Message}");                          
+                    Console.WriteLine($"No se pudo insertar los datos: {ex.Message}");
                 }
             }
         }
 
-        public void Update (Libro libro)
+        public void Update(Libro libro)
         {
-            
+
             using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
             {
                 try
@@ -63,7 +63,7 @@ namespace Data
                     SqlParameter id = new SqlParameter("id", System.Data.SqlDbType.BigInt) { Value = libro.Id };
 
                     conexion.Open();
-                    using(SqlCommand cmd= new SqlCommand(queryUpLibro, conexion))
+                    using (SqlCommand cmd = new SqlCommand(queryUpLibro, conexion))
                     {
                         cmd.Parameters.Add(nombre);
                         cmd.Parameters.Add(autor);
@@ -79,13 +79,13 @@ namespace Data
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"No se pudo actualizar: {ex.Message}");                    
+                    Console.WriteLine($"No se pudo actualizar: {ex.Message}");
                 }
             }
         }
-        public void Delete (int id)
+        public void Delete(int id)
         {
-            
+
             using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
             {
                 try
@@ -99,12 +99,12 @@ namespace Data
                     Querys.Add(queryDtLibro);
 
                     conexion.Open();
-                    foreach(var query in Querys)
+                    foreach (var query in Querys)
                     {
                         SqlParameter sqlParameter = new SqlParameter("id", System.Data.SqlDbType.BigInt);
                         sqlParameter.Value = id;
 
-                        using(SqlCommand cmd = new SqlCommand(query, conexion))
+                        using (SqlCommand cmd = new SqlCommand(query, conexion))
                         {
                             cmd.Parameters.Add(sqlParameter);
                             int numberOfRows = cmd.ExecuteNonQuery();
@@ -112,7 +112,7 @@ namespace Data
                     }
                     conexion.Close();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine($"No se pudo eliminar lo solicitado: {ex.Message}");
                 }
@@ -122,17 +122,17 @@ namespace Data
         }
         public List<Libro> Get()
         {
-            
+
             List<Libro> libros = new List<Libro>();
-            using(SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
+            using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
             {
                 try
                 {
                     var queryGetLibros = "SELECT * FROM Libro";
-                    using(SqlCommand cmd = new SqlCommand(queryGetLibros, conexion))
+                    using (SqlCommand cmd = new SqlCommand(queryGetLibros, conexion))
                     {
                         conexion.Open();
-                        using(SqlDataReader reader = cmd.ExecuteReader())
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             if (reader.HasRows)
                             {
@@ -156,12 +156,48 @@ namespace Data
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"No es posible traer la informacion: {ex.Message}");                    
+                    Console.WriteLine($"No es posible traer la informacion: {ex.Message}");
                 }
 
                 return libros;
             }
 
         }
+
+        public List<Libro> Get(string letra)
+        {
+            List<Libro> librosFiltrados = new List<Libro>();
+            using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
+            {
+                try
+                {
+                    var queryFiltrar = "SELECT * FROM Libro WHERE Nombre = @nombre";
+                    SqlParameter nombreFiltrado = new SqlParameter("Nombre", System.Data.SqlDbType.VarChar) { Value = letra.StartsWith(letra) };
+
+
+                    conexion.Open();
+                    using (SqlCommand cmd = new SqlCommand(queryFiltrar, conexion))
+                    {
+                        cmd.Parameters.Add(nombreFiltrado);
+                        cmd.ExecuteNonQuery();
+
+
+                    }
+
+                    conexion.Close();
+                    
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"No es posible realizar el filtrado: {ex.Message}");
+
+                }
+
+                return librosFiltrados;
+            }
+        }
     }
+
+
 }

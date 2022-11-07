@@ -20,7 +20,7 @@ namespace AppVentasFer
 
         private void frmLibros_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void textBox3_TextChanged(object sender, EventArgs e)
@@ -30,10 +30,10 @@ namespace AppVentasFer
 
         private void txtNombre_TextChanged(object sender, EventArgs e)
         {
-           
+
         }
 
-        private void btnGuardar_Click(object sender, EventArgs e)
+        private void btnAgregar_Click(object sender, EventArgs e)
         {
             var libro = new Libro();
             libro.Nombre = txtNombre.Text;
@@ -44,15 +44,16 @@ namespace AppVentasFer
             libro.Sinopsis = txtSinopsis.Text;
 
             ValidarNulo();
-            
-            
 
-            var librosService = new LibrosService();
-            librosService.GuardarLibro(libro);
+            var insertarEnBD = ValidarNulo();
+            if (insertarEnBD)
+            {
+                var librosService = new LibrosService();
+                librosService.GuardarLibro(libro);
+                Limpiar();
+            }
+                      
 
-            
-            Limpiar();
-            
         }
 
         private void Limpiar()
@@ -66,11 +67,11 @@ namespace AppVentasFer
             txtSinopsis.Text = string.Empty;
             txtStock.Text = string.Empty;
         }
-                                      
+
         private bool ValidarNulo()
         {
             bool validar = true;
-            if(txtNombre.Text == "")
+            if (txtNombre.Text == "")
             {
                 validar = false;
                 errorNombre.SetError(txtNombre, "Ingresar un nombre");
@@ -78,27 +79,27 @@ namespace AppVentasFer
             if (txtAutor.Text == "")
             {
                 validar = false;
-                errorAutor.SetError(txtAutor, "Ingresar un autor");
+                errorNombre.SetError(txtAutor, "Ingresar un autor");
             }
             if (txtEditorial.Text == "")
             {
                 validar = false;
-                errorEditorial.SetError(txtNombre, "Ingresar una editorial");
+                errorNombre.SetError(txtEditorial, "Ingresar una editorial");
             }
             if (txtPrecio.Text == "")
             {
                 validar = false;
-                errorPrecio.SetError(txtNombre, "Ingresar el monto");
+                errorNombre.SetError(txtPrecio, "Ingresar el monto");
             }
             if (txtStock.Text == "")
             {
                 validar = false;
-                errorStock.SetError(txtNombre, "Ingresar el stock");
+                errorNombre.SetError(txtStock, "Ingresar el stock");
             }
             if (txtSinopsis.Text == "")
             {
                 validar = false;
-                errorSinopsis.SetError(txtNombre, "Ingresar descripcion");
+                errorNombre.SetError(txtSinopsis, "Ingresar descripcion");
             }
             return validar;
         }

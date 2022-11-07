@@ -44,21 +44,13 @@
             this.labelStock = new System.Windows.Forms.Label();
             this.labelSinopsis = new System.Windows.Forms.Label();
             this.txtCodigo = new System.Windows.Forms.TextBox();
-            this.btnGuardar = new System.Windows.Forms.Button();
-            this.btnBorrar = new System.Windows.Forms.Button();
+            this.btnAgregar = new System.Windows.Forms.Button();
             this.errorNombre = new System.Windows.Forms.ErrorProvider(this.components);
-            this.errorAutor = new System.Windows.Forms.ErrorProvider(this.components);
-            this.errorEditorial = new System.Windows.Forms.ErrorProvider(this.components);
-            this.errorPrecio = new System.Windows.Forms.ErrorProvider(this.components);
-            this.errorStock = new System.Windows.Forms.ErrorProvider(this.components);
-            this.errorSinopsis = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnModificar = new System.Windows.Forms.Button();
+            this.btnBorrar = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
             this.tlpRegistro.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorNombre)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorAutor)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorEditorial)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorPrecio)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorStock)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorSinopsis)).BeginInit();
             this.SuspendLayout();
             // 
             // tlpRegistro
@@ -255,58 +247,64 @@
             this.txtCodigo.Size = new System.Drawing.Size(73, 27);
             this.txtCodigo.TabIndex = 7;
             // 
-            // btnGuardar
+            // btnAgregar
             // 
-            this.btnGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.792F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnGuardar.Location = new System.Drawing.Point(21, 505);
-            this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(191, 48);
-            this.btnGuardar.TabIndex = 1;
-            this.btnGuardar.Text = "Guardar";
-            this.btnGuardar.UseVisualStyleBackColor = true;
-            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
-            // 
-            // btnBorrar
-            // 
-            this.btnBorrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.792F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnBorrar.Location = new System.Drawing.Point(247, 505);
-            this.btnBorrar.Name = "btnBorrar";
-            this.btnBorrar.Size = new System.Drawing.Size(191, 48);
-            this.btnBorrar.TabIndex = 2;
-            this.btnBorrar.Text = "Borrar";
-            this.btnBorrar.UseVisualStyleBackColor = true;
+            this.btnAgregar.BackColor = System.Drawing.SystemColors.Control;
+            this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 17.856F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnAgregar.Location = new System.Drawing.Point(191, 475);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(269, 45);
+            this.btnAgregar.TabIndex = 1;
+            this.btnAgregar.Text = "Agregar";
+            this.btnAgregar.UseVisualStyleBackColor = false;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // errorNombre
             // 
             this.errorNombre.ContainerControl = this;
             // 
-            // errorAutor
+            // btnModificar
             // 
-            this.errorAutor.ContainerControl = this;
+            this.btnModificar.BackColor = System.Drawing.SystemColors.Control;
+            this.btnModificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 17.856F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnModificar.Location = new System.Drawing.Point(634, 475);
+            this.btnModificar.Name = "btnModificar";
+            this.btnModificar.Size = new System.Drawing.Size(269, 45);
+            this.btnModificar.TabIndex = 2;
+            this.btnModificar.Text = "Modificar";
+            this.btnModificar.UseVisualStyleBackColor = false;
             // 
-            // errorEditorial
+            // btnBorrar
             // 
-            this.errorEditorial.ContainerControl = this;
+            this.btnBorrar.BackColor = System.Drawing.SystemColors.Control;
+            this.btnBorrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 17.856F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnBorrar.Location = new System.Drawing.Point(191, 542);
+            this.btnBorrar.Name = "btnBorrar";
+            this.btnBorrar.Size = new System.Drawing.Size(269, 45);
+            this.btnBorrar.TabIndex = 3;
+            this.btnBorrar.Text = "Eliminar";
+            this.btnBorrar.UseVisualStyleBackColor = false;
             // 
-            // errorPrecio
+            // btnCancelar
             // 
-            this.errorPrecio.ContainerControl = this;
-            // 
-            // errorStock
-            // 
-            this.errorStock.ContainerControl = this;
-            // 
-            // errorSinopsis
-            // 
-            this.errorSinopsis.ContainerControl = this;
+            this.btnCancelar.BackColor = System.Drawing.SystemColors.Control;
+            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 17.856F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnCancelar.Location = new System.Drawing.Point(634, 542);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(269, 45);
+            this.btnCancelar.TabIndex = 4;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = false;
             // 
             // frmLibros
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1042, 599);
+            this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnBorrar);
-            this.Controls.Add(this.btnGuardar);
+            this.Controls.Add(this.btnModificar);
+            this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.tlpRegistro);
             this.Name = "frmLibros";
             this.Text = "REGISTRO DE LIBROS";
@@ -314,11 +312,6 @@
             this.tlpRegistro.ResumeLayout(false);
             this.tlpRegistro.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorNombre)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorAutor)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorEditorial)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorPrecio)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorStock)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorSinopsis)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -340,13 +333,10 @@
         private System.Windows.Forms.Label labelStock;
         private System.Windows.Forms.Label labelSinopsis;
         private System.Windows.Forms.TextBox txtCodigo;
-        private System.Windows.Forms.Button btnGuardar;
-        private System.Windows.Forms.Button btnBorrar;
+        private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.ErrorProvider errorNombre;
-        private System.Windows.Forms.ErrorProvider errorAutor;
-        private System.Windows.Forms.ErrorProvider errorEditorial;
-        private System.Windows.Forms.ErrorProvider errorPrecio;
-        private System.Windows.Forms.ErrorProvider errorStock;
-        private System.Windows.Forms.ErrorProvider errorSinopsis;
+        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Button btnBorrar;
+        private System.Windows.Forms.Button btnModificar;
     }
 }
