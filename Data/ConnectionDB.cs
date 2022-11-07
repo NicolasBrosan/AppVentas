@@ -11,8 +11,18 @@ namespace Data
         private string connection;
         public string CConnection(string DB)
         {
-            connection = ConfigurationManager.ConnectionStrings[DB].ConnectionString;
-            return connection;
+            try
+            {
+                connection = ConfigurationManager.ConnectionStrings[DB].ConnectionString;
+                return connection;
+
+            }
+            catch (Exception ex)
+            {
+                var aviso = $"No se puede conectar a la BD {ex.Message}";
+                return aviso;
+            }
+            
         }
 
     }

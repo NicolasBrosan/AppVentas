@@ -15,7 +15,7 @@ namespace Data
             {
                 try
                 {
-                    string queryLibro = "INSERT INTO Libro (Nombre, Autor, Editorial, Sinopsis, Precio, Stock, IdUsuario) VALUES (@nombre, @autor, @editorial, @sinopsis, @precio, @stock, @idUsuario)";
+                    string queryLibro = "INSERT INTO Libro (Nombre, Autor, Editorial, Sinopsis, Precio, Stock) VALUES (@nombre, @autor, @editorial, @sinopsis, @precio, @stock)";
 
                     SqlParameter nombre = new SqlParameter("Nombre", System.Data.SqlDbType.VarChar) { Value = libro.Nombre };
                     SqlParameter autor = new SqlParameter("Autor", System.Data.SqlDbType.VarChar) { Value = libro.Autor };
@@ -34,7 +34,7 @@ namespace Data
                         cmd.Parameters.Add(precio);
                         cmd.Parameters.Add(stock);
 
-                        int numberOfRows = cmd.ExecuteNonQuery();
+                        cmd.ExecuteNonQuery();
                     }
                     conexion.Close();
                 }
@@ -60,7 +60,6 @@ namespace Data
                     SqlParameter sinopsis = new SqlParameter("sinopsis", System.Data.SqlDbType.VarChar) { Value = libro.Sinopsis };
                     SqlParameter precio = new SqlParameter("precio", System.Data.SqlDbType.Decimal) { Value = libro.Precio };
                     SqlParameter stock = new SqlParameter("stock", System.Data.SqlDbType.Int) { Value = libro.Stock };
-                    SqlParameter idUsuario = new SqlParameter("idUsuario", System.Data.SqlDbType.Int) { Value = libro.IdUsuario };
                     SqlParameter id = new SqlParameter("id", System.Data.SqlDbType.BigInt) { Value = libro.Id };
 
                     conexion.Open();
@@ -72,7 +71,6 @@ namespace Data
                         cmd.Parameters.Add(sinopsis);
                         cmd.Parameters.Add(precio);
                         cmd.Parameters.Add(stock);
-                        cmd.Parameters.Add(idUsuario);
                         cmd.Parameters.Add(id);
 
                         int NumberOfRows = cmd.ExecuteNonQuery();
@@ -148,7 +146,6 @@ namespace Data
                                     libro.Sinopsis = reader["Sinopsis"].ToString();
                                     libro.Precio = Convert.ToDecimal(reader["Precio"]);
                                     libro.Stock = Convert.ToInt32(reader["Stock"]);
-                                    libro.IdUsuario = Convert.ToInt32(reader["IdUsuario"]);
 
                                     libros.Add(libro);
                                 }

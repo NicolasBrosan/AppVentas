@@ -13,6 +13,5 @@ namespace Domain.Negocio
         public string Sinopsis { get; set; }
         public decimal Precio { get; set; }
         public int Stock { get; set; }
-        public int IdUsuario { get; set; }
     }
 }
