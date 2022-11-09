@@ -11,7 +11,7 @@ namespace Domain.Negocio
         public string Autor { get; set; }
         public string Editorial { get; set; }
         public string Sinopsis { get; set; }
-        public decimal Precio { get; set; }
+        public double Precio { get; set; }
         public int Stock { get; set; }
     }
 }

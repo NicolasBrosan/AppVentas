@@ -39,8 +39,14 @@ namespace AppVentasFer
             libro.Nombre = txtNombre.Text;
             libro.Autor = txtAutor.Text;
             libro.Editorial = txtEditorial.Text;
-            libro.Precio = Convert.ToDecimal(txtPrecio.Text);
-            libro.Stock = Convert.ToInt32(txtStock.Text);
+            if(libro.Precio == null)
+            {
+                txtPrecio.Text = Convert.ToString(libro.Precio);
+            }
+            if(libro.Stock == null)
+            {
+                txtStock.Text = Convert.ToString(libro.Stock);
+            }             
             libro.Sinopsis = txtSinopsis.Text;
 
             ValidarNulo();
@@ -52,7 +58,7 @@ namespace AppVentasFer
                 librosService.GuardarLibro(libro);
                 Limpiar();
             }
-                      
+
 
         }
 
@@ -71,6 +77,7 @@ namespace AppVentasFer
         private bool ValidarNulo()
         {
             bool validar = true;
+
             if (txtNombre.Text == "")
             {
                 validar = false;

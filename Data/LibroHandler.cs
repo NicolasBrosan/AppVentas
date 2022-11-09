@@ -144,7 +144,7 @@ namespace Data
                                     libro.Autor = reader["Autor"].ToString();
                                     libro.Editorial = reader["Editorial"].ToString();
                                     libro.Sinopsis = reader["Sinopsis"].ToString();
-                                    libro.Precio = Convert.ToDecimal(reader["Precio"]);
+                                    libro.Precio = Convert.ToDouble(reader["Precio"]);
                                     libro.Stock = Convert.ToInt32(reader["Stock"]);
 
                                     libros.Add(libro);
