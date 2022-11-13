@@ -171,21 +171,38 @@ namespace Data
             {
                 try
                 {
-                    var queryFiltrar = "SELECT * FROM Libro WHERE Nombre = @nombre";
-                    SqlParameter nombreFiltrado = new SqlParameter("Nombre", System.Data.SqlDbType.VarChar) { Value = letra.StartsWith(letra) };
-
+                    var queryFiltrar = "SELECT * FROM Libro WHERE Nombre LIKE @nombre";
 
                     conexion.Open();
+
                     using (SqlCommand cmd = new SqlCommand(queryFiltrar, conexion))
                     {
-                        cmd.Parameters.Add(nombreFiltrado);
-                        cmd.ExecuteNonQuery();
+                        cmd.Parameters.AddWithValue("@nombre", "%" + letra + "%");
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                while (reader.Read())
+                                {
+                                    Libro libro = new Libro();
+                                    libro.Id = Convert.ToInt32(reader["Id"]);
+                                    libro.Nombre = reader["Nombre"].ToString();
+                                    libro.Autor = reader["Autor"].ToString();
+                                    libro.Editorial = reader["Editorial"].ToString();
+                                    libro.Sinopsis = reader["Sinopsis"].ToString();
+                                    libro.Precio = Convert.ToDouble(reader["Precio"]);
+                                    libro.Stock = Convert.ToInt32(reader["Stock"]);
 
+                                    librosFiltrados.Add(libro);
 
+                                }
+
+                            }
+                        }
                     }
 
                     conexion.Close();
-                    
+
 
                 }
                 catch (Exception ex)
@@ -196,6 +213,37 @@ namespace Data
 
                 return librosFiltrados;
             }
+        }
+
+        public List<Libro> GetId(int id)
+        {
+            var libroId = new List<Libro>();
+            using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
+            {
+                try
+                {
+                    var queryId = "SELECT * FROM Libro WHERE Id = @id";
+                    SqlParameter bookId = new SqlParameter("Id", System.Data.SqlDbType.Int) { Value = id };
+
+                    conexion.Open();
+                    using (SqlCommand cmd = new SqlCommand(queryId, conexion))
+                    {
+                        cmd.Parameters.Add(bookId);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    conexion.Close();
+
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine($"No se encontro el Id: {ex.Message}");
+                }
+
+                return libroId;
+            }
+
         }
     }
 
