@@ -8,7 +8,7 @@ namespace Data.Interface
     public interface ICrud<T>
     {
         public void Insert(T obj);
-        public void Update(T obj);
+        public bool Update(T obj);
         public void Delete(int id);
         public List<T> Get();
     }

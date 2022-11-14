@@ -46,6 +46,7 @@
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.errorNulo = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnActualizar = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorNulo)).BeginInit();
             this.SuspendLayout();
@@ -269,12 +270,26 @@
             // 
             this.errorNulo.ContainerControl = this;
             // 
+            // btnActualizar
+            // 
+            this.btnActualizar.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnActualizar.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.btnActualizar.Location = new System.Drawing.Point(278, 445);
+            this.btnActualizar.Name = "btnActualizar";
+            this.btnActualizar.Size = new System.Drawing.Size(180, 48);
+            this.btnActualizar.TabIndex = 2;
+            this.btnActualizar.Text = "Actualizar";
+            this.btnActualizar.UseVisualStyleBackColor = false;
+            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click_1);
+            // 
             // frmRegisterLibro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1071, 580);
+            this.Controls.Add(this.btnActualizar);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -306,5 +321,6 @@
         private System.Windows.Forms.TextBox txtAutor;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.ErrorProvider errorNulo;
+        private System.Windows.Forms.Button btnActualizar;
     }
 }

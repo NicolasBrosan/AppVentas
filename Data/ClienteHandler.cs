@@ -50,8 +50,9 @@ namespace Data
             }
         }
 
-        public void Update(Cliente cliente)
+        public bool Update(Cliente cliente)
         {
+            var resultado = false;
             using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
             {
                 try
@@ -81,6 +82,10 @@ namespace Data
                         cmd.Parameters.Add(id);
 
                         int numberOfRows = cmd.ExecuteNonQuery();
+                        if(numberOfRows > 0)
+                        {
+                            resultado = true;
+                        }
                     }
 
                     conexion.Close();
@@ -91,6 +96,7 @@ namespace Data
                     Console.WriteLine($"No se pudo actualizar: {ex.Message}");
                 }
             }
+            return resultado;
         }
 
         public void Delete(int id)

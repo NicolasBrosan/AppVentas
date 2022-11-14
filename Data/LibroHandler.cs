@@ -45,22 +45,22 @@ namespace Data
             }
         }
 
-        public void Update(Libro libro)
+        public bool Update(Libro libro)
         {
-
+            var resultado = false;
             using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
             {
                 try
                 {
-                    string queryUpLibro = "UPDATE [DB_VentaLibros].[dbo].[Libro] SET Nombre = @nombre, Autor = @autor, Editorial = @editorial, Sinopsis = @sinopsis, Precio = @precio, Stock = @stock, IdUsuario = @idUsuario WHERE Id = @id";
+                    string queryUpLibro = "UPDATE Libro SET Nombre = @nombre, Autor = @autor, Editorial = @editorial, Sinopsis = @sinopsis, Precio = @precio, Stock = @stock WHERE Id = @id";
 
-                    SqlParameter nombre = new SqlParameter("nombre", System.Data.SqlDbType.VarChar) { Value = libro.Nombre };
-                    SqlParameter autor = new SqlParameter("autor", System.Data.SqlDbType.VarChar) { Value = libro.Autor };
-                    SqlParameter editorial = new SqlParameter("editorial", System.Data.SqlDbType.VarChar) { Value = libro.Editorial };
-                    SqlParameter sinopsis = new SqlParameter("sinopsis", System.Data.SqlDbType.VarChar) { Value = libro.Sinopsis };
-                    SqlParameter precio = new SqlParameter("precio", System.Data.SqlDbType.Decimal) { Value = libro.Precio };
-                    SqlParameter stock = new SqlParameter("stock", System.Data.SqlDbType.Int) { Value = libro.Stock };
-                    SqlParameter id = new SqlParameter("id", System.Data.SqlDbType.BigInt) { Value = libro.Id };
+                    SqlParameter nombre = new SqlParameter("Nombre", System.Data.SqlDbType.VarChar) { Value = libro.Nombre };
+                    SqlParameter autor = new SqlParameter("Autor", System.Data.SqlDbType.VarChar) { Value = libro.Autor };
+                    SqlParameter editorial = new SqlParameter("Editorial", System.Data.SqlDbType.VarChar) { Value = libro.Editorial };
+                    SqlParameter sinopsis = new SqlParameter("Sinopsis", System.Data.SqlDbType.VarChar) { Value = libro.Sinopsis };
+                    SqlParameter precio = new SqlParameter("Precio", System.Data.SqlDbType.Decimal) { Value = libro.Precio };
+                    SqlParameter stock = new SqlParameter("Stock", System.Data.SqlDbType.Int) { Value = libro.Stock };
+                    SqlParameter id = new SqlParameter("Id", System.Data.SqlDbType.BigInt) { Value = libro.Id };
 
                     conexion.Open();
                     using (SqlCommand cmd = new SqlCommand(queryUpLibro, conexion))
@@ -73,7 +73,11 @@ namespace Data
                         cmd.Parameters.Add(stock);
                         cmd.Parameters.Add(id);
 
-                        int NumberOfRows = cmd.ExecuteNonQuery();
+                        var numberOfRows = cmd.ExecuteNonQuery();
+                        if(numberOfRows > 0)
+                        {
+                            resultado = true;
+                        }
                     }
                     conexion.Close();
                 }
@@ -82,6 +86,7 @@ namespace Data
                     Console.WriteLine($"No se pudo actualizar: {ex.Message}");
                 }
             }
+            return resultado;
         }
         public void Delete(int id)
         {

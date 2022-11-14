@@ -12,7 +12,7 @@ using System.Windows.Forms;
 namespace AppVentasFer
 {
     public partial class frmRegisterLibro : Form
-    {        
+    {
         public frmRegisterLibro(Libro libro)
         {
             InitializeComponent();
@@ -25,7 +25,7 @@ namespace AppVentasFer
             txtSinopsis.Text = libro.Sinopsis;
 
         }
-        
+
         private void btnGuardar_Click_1(object sender, EventArgs e)
         {
             Libro libro = new Libro();
@@ -51,8 +51,8 @@ namespace AppVentasFer
             }
             else
             {
-                var insertarEnBD = ValidarNulo();
-                if (insertarEnBD)
+                var validarCampoNulo = ValidarNulo();
+                if (validarCampoNulo)
                 {
                     var librosService = new LibrosService();
                     librosService.GuardarLibro(libro);
@@ -60,10 +60,34 @@ namespace AppVentasFer
                 }
             }
 
-            
-
         }
-        
+
+        private void btnActualizar_Click_1(object sender, EventArgs e)
+        {
+            Libro libroactualizado = new Libro();
+
+            libroactualizado.Nombre = txtNombre.Text;
+            libroactualizado.Autor = txtAutor.Text;
+            libroactualizado.Editorial = txtEditorial.Text;
+            if (double.TryParse(txtPrecio.Text, out var precioactualizado))
+            {
+                libroactualizado.Precio = precioactualizado;
+            }
+            if (int.TryParse(txtStock.Text, out var stockactualizado))
+            {
+                libroactualizado.Stock = stockactualizado;
+            }
+
+            libroactualizado.Sinopsis = txtSinopsis.Text;
+
+            var validarCampoNulo = ValidarNulo();
+            if (validarCampoNulo)
+            {
+                var libroService = new LibrosService();
+                libroService.ActualizarLibro(libroactualizado);
+                Limpiar();
+            }
+        }
         private void Limpiar()
         {
             txtCodigo.Text = string.Empty;
@@ -115,13 +139,12 @@ namespace AppVentasFer
 
         private bool ValidarRepetido(string nombre)
         {
-            
+
             var libroService = new LibrosService();
             var libros = libroService.ObtenerLibrosPorNombre(nombre);
             var validacionDeLibro = libros.Any(libros => libros.Nombre == nombre);
-            
+
             return validacionDeLibro;
         }
-
     }
 }

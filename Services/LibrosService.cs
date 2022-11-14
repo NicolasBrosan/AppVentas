@@ -14,9 +14,9 @@ namespace Services
         {
             libroHandler.Insert(libro);
         }
-        public void ModificarLibro(Libro modificarLibro)
+        public void ActualizarLibro(Libro actualizarLibro)
         {
-            libroHandler.Update(modificarLibro);
+            libroHandler.Update(actualizarLibro);
         }
         public List<Libro> ObtenerLibros()
         {
@@ -26,8 +26,7 @@ namespace Services
 
         //Sobreescribo Get()
         public List<Libro> ObtenerLibrosPorNombre(string filtro)
-        {
-            //return libroHandler.Get(filtro);
+        {              
             var libros = ObtenerLibros();
             var resultado = libros.Where(libro => libro.Nombre.Contains(filtro));
 
