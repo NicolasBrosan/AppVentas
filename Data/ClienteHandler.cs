@@ -99,7 +99,7 @@ namespace Data
             return resultado;
         }
 
-        public void Delete(int id)
+        public void Delete(Cliente id)
         {
             using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
             {

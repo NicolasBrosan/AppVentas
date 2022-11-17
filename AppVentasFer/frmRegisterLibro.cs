@@ -33,7 +33,7 @@ namespace AppVentasFer
             libro.Nombre = txtNombre.Text;
             libro.Autor = txtAutor.Text;
             libro.Editorial = txtEditorial.Text;
-            if (double.TryParse(txtPrecio.Text, out var nuevoPrecio))
+            if (decimal.TryParse(txtPrecio.Text, out var nuevoPrecio))
             {
                 libro.Precio = nuevoPrecio;
             }
@@ -47,7 +47,7 @@ namespace AppVentasFer
             var validarRepetido = ValidarRepetido(libro.Nombre);
             if (validarRepetido)
             {
-                errorNulo.SetError(txtNombre, "Ya existe en la base de datos");
+                errorGral.SetError(txtNombre, "Ya existe en la base de datos");
             }
             else
             {
@@ -66,10 +66,14 @@ namespace AppVentasFer
         {
             Libro libroactualizado = new Libro();
 
+            if(int.TryParse(txtCodigo.Text, out var nuevoCodigo))
+            {
+                libroactualizado.Id = nuevoCodigo;
+            }
             libroactualizado.Nombre = txtNombre.Text;
             libroactualizado.Autor = txtAutor.Text;
             libroactualizado.Editorial = txtEditorial.Text;
-            if (double.TryParse(txtPrecio.Text, out var precioactualizado))
+            if (decimal.TryParse(txtPrecio.Text, out var precioactualizado))
             {
                 libroactualizado.Precio = precioactualizado;
             }
@@ -88,6 +92,24 @@ namespace AppVentasFer
                 Limpiar();
             }
         }
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            Libro libroEliminado = new Libro();
+            if (int.TryParse(txtCodigo.Text, out var nuevoCodigo))
+            {
+                libroEliminado.Id = nuevoCodigo;
+            }
+
+            var validarCampoNulo = ValidarNulo();
+            if (validarCampoNulo)
+            {
+                var libroService = new LibrosService();
+                libroService.EliminarLibro(libroEliminado);
+                Limpiar();
+            }
+
+        }
+
         private void Limpiar()
         {
             txtCodigo.Text = string.Empty;
@@ -107,32 +129,32 @@ namespace AppVentasFer
             if (txtNombre.Text == "")
             {
                 validar = false;
-                errorNulo.SetError(txtNombre, "Ingresar un nombre");
+                errorGral.SetError(txtNombre, "Ingresar un nombre");
             }
             if (txtAutor.Text == "")
             {
                 validar = false;
-                errorNulo.SetError(txtAutor, "Ingresar un autor");
+                errorGral.SetError(txtAutor, "Ingresar un autor");
             }
             if (txtEditorial.Text == "")
             {
                 validar = false;
-                errorNulo.SetError(txtEditorial, "Ingresar una editorial");
+                errorGral.SetError(txtEditorial, "Ingresar una editorial");
             }
             if (txtPrecio.Text == "")
             {
                 validar = false;
-                errorNulo.SetError(txtPrecio, "Ingresar el monto");
+                errorGral.SetError(txtPrecio, "Ingresar el monto");
             }
             if (txtStock.Text == "")
             {
                 validar = false;
-                errorNulo.SetError(txtStock, "Ingresar el stock");
+                errorGral.SetError(txtStock, "Ingresar el stock");
             }
             if (txtSinopsis.Text == "")
             {
                 validar = false;
-                errorNulo.SetError(txtSinopsis, "Ingresar descripcion");
+                errorGral.SetError(txtSinopsis, "Ingresar descripcion");
             }
             return validar;
         }
@@ -146,5 +168,6 @@ namespace AppVentasFer
 
             return validacionDeLibro;
         }
+
     }
 }

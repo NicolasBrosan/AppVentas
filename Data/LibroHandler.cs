@@ -52,26 +52,18 @@ namespace Data
             {
                 try
                 {
-                    string queryUpLibro = "UPDATE Libro SET Nombre = @nombre, Autor = @autor, Editorial = @editorial, Sinopsis = @sinopsis, Precio = @precio, Stock = @stock WHERE Id = @id";
-
-                    SqlParameter nombre = new SqlParameter("Nombre", System.Data.SqlDbType.VarChar) { Value = libro.Nombre };
-                    SqlParameter autor = new SqlParameter("Autor", System.Data.SqlDbType.VarChar) { Value = libro.Autor };
-                    SqlParameter editorial = new SqlParameter("Editorial", System.Data.SqlDbType.VarChar) { Value = libro.Editorial };
-                    SqlParameter sinopsis = new SqlParameter("Sinopsis", System.Data.SqlDbType.VarChar) { Value = libro.Sinopsis };
-                    SqlParameter precio = new SqlParameter("Precio", System.Data.SqlDbType.Decimal) { Value = libro.Precio };
-                    SqlParameter stock = new SqlParameter("Stock", System.Data.SqlDbType.Int) { Value = libro.Stock };
-                    SqlParameter id = new SqlParameter("Id", System.Data.SqlDbType.BigInt) { Value = libro.Id };
+                    string queryUpLibro = "UPDATE [DB_VentaLibros].[dbo].[Libro] SET Nombre = @nombre, Autor = @autor, Editorial = @editorial, Sinopsis = @sinopsis, Precio = @precio, Stock = @stock WHERE Id = @id";
 
                     conexion.Open();
                     using (SqlCommand cmd = new SqlCommand(queryUpLibro, conexion))
                     {
-                        cmd.Parameters.Add(nombre);
-                        cmd.Parameters.Add(autor);
-                        cmd.Parameters.Add(editorial);
-                        cmd.Parameters.Add(sinopsis);
-                        cmd.Parameters.Add(precio);
-                        cmd.Parameters.Add(stock);
-                        cmd.Parameters.Add(id);
+                        cmd.Parameters.AddWithValue("@nombre", libro.Nombre);
+                        cmd.Parameters.AddWithValue("@autor", libro.Autor);
+                        cmd.Parameters.AddWithValue("@editorial", libro.Editorial);
+                        cmd.Parameters.AddWithValue("@sinopsis", libro.Sinopsis);
+                        cmd.Parameters.AddWithValue("@precio", libro.Precio);
+                        cmd.Parameters.AddWithValue("@stock", libro.Stock);
+                        cmd.Parameters.AddWithValue("@id", libro.Id);
 
                         var numberOfRows = cmd.ExecuteNonQuery();
                         if(numberOfRows > 0)
@@ -88,7 +80,7 @@ namespace Data
             }
             return resultado;
         }
-        public void Delete(int id)
+        public void Delete(Libro id)
         {
 
             using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
@@ -106,12 +98,12 @@ namespace Data
                     conexion.Open();
                     foreach (var query in Querys)
                     {
-                        SqlParameter sqlParameter = new SqlParameter("id", System.Data.SqlDbType.BigInt);
-                        sqlParameter.Value = id;
+                        //SqlParameter sqlParameter = new SqlParameter("id", System.Data.SqlDbType.BigInt);
+                        //sqlParameter.Value = id;
 
                         using (SqlCommand cmd = new SqlCommand(query, conexion))
                         {
-                            cmd.Parameters.Add(sqlParameter);
+                            cmd.Parameters.AddWithValue("@id", id.Id);
                             int numberOfRows = cmd.ExecuteNonQuery();
                         }
                     }
@@ -149,7 +141,7 @@ namespace Data
                                     libro.Autor = reader["Autor"].ToString();
                                     libro.Editorial = reader["Editorial"].ToString();
                                     libro.Sinopsis = reader["Sinopsis"].ToString();
-                                    libro.Precio = Convert.ToDouble(reader["Precio"]);
+                                    libro.Precio = Convert.ToDecimal(reader["Precio"]);
                                     libro.Stock = Convert.ToInt32(reader["Stock"]);
 
                                     libros.Add(libro);
@@ -195,7 +187,7 @@ namespace Data
                                     libro.Autor = reader["Autor"].ToString();
                                     libro.Editorial = reader["Editorial"].ToString();
                                     libro.Sinopsis = reader["Sinopsis"].ToString();
-                                    libro.Precio = Convert.ToDouble(reader["Precio"]);
+                                    libro.Precio = Convert.ToDecimal(reader["Precio"]);
                                     libro.Stock = Convert.ToInt32(reader["Stock"]);
 
                                     librosFiltrados.Add(libro);

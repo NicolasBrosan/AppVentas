@@ -9,7 +9,7 @@ namespace Data.Interface
     {
         public void Insert(T obj);
         public bool Update(T obj);
-        public void Delete(int id);
+        public void Delete(T id);
         public List<T> Get();
     }
 }

@@ -45,10 +45,11 @@
             this.labelSinopsis = new System.Windows.Forms.Label();
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.btnGuardar = new System.Windows.Forms.Button();
-            this.errorNulo = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorGral = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnActualizar = new System.Windows.Forms.Button();
+            this.btnEliminar = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorNulo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorGral)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -257,6 +258,7 @@
             // 
             this.btnGuardar.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.792F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnGuardar.ForeColor = System.Drawing.SystemColors.Desktop;
             this.btnGuardar.Location = new System.Drawing.Point(80, 445);
             this.btnGuardar.Name = "btnGuardar";
@@ -266,14 +268,15 @@
             this.btnGuardar.UseVisualStyleBackColor = false;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click_1);
             // 
-            // errorNulo
+            // errorGral
             // 
-            this.errorNulo.ContainerControl = this;
+            this.errorGral.ContainerControl = this;
             // 
             // btnActualizar
             // 
             this.btnActualizar.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnActualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.792F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnActualizar.ForeColor = System.Drawing.SystemColors.Desktop;
             this.btnActualizar.Location = new System.Drawing.Point(278, 445);
             this.btnActualizar.Name = "btnActualizar";
@@ -283,12 +286,27 @@
             this.btnActualizar.UseVisualStyleBackColor = false;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click_1);
             // 
+            // btnEliminar
+            // 
+            this.btnEliminar.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.792F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnEliminar.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.btnEliminar.Location = new System.Drawing.Point(475, 445);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(180, 48);
+            this.btnEliminar.TabIndex = 3;
+            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.UseVisualStyleBackColor = false;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            // 
             // frmRegisterLibro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1071, 580);
+            this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnActualizar);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.tableLayoutPanel1);
@@ -297,7 +315,7 @@
             this.Text = "REGISTRO DE LIBROS";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorNulo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorGral)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -320,7 +338,8 @@
         private System.Windows.Forms.TextBox txtEditorial;
         private System.Windows.Forms.TextBox txtAutor;
         private System.Windows.Forms.Button btnGuardar;
-        private System.Windows.Forms.ErrorProvider errorNulo;
+        private System.Windows.Forms.ErrorProvider errorGral;
         private System.Windows.Forms.Button btnActualizar;
+        private System.Windows.Forms.Button btnEliminar;
     }
 }
