@@ -25,7 +25,6 @@ namespace AppVentasFer
             txtSinopsis.Text = libro.Sinopsis;
 
         }
-
         private void btnGuardar_Click_1(object sender, EventArgs e)
         {
             Libro libro = new Libro();
@@ -61,7 +60,6 @@ namespace AppVentasFer
             }
 
         }
-
         private void btnActualizar_Click_1(object sender, EventArgs e)
         {
             Libro libroactualizado = new Libro();
@@ -105,12 +103,13 @@ namespace AppVentasFer
             {
                 var libroService = new LibrosService();
                 libroService.EliminarLibro(libroEliminado);
+                
                 Limpiar();
+                
             }
 
         }
-
-        private void Limpiar()
+       private void Limpiar()
         {
             txtCodigo.Text = string.Empty;
             txtNombre.Text = string.Empty;
@@ -121,7 +120,6 @@ namespace AppVentasFer
             txtSinopsis.Text = string.Empty;
             txtStock.Text = string.Empty;
         }
-
         private bool ValidarNulo()
         {
             bool validar = true;
@@ -158,7 +156,6 @@ namespace AppVentasFer
             }
             return validar;
         }
-
         private bool ValidarRepetido(string nombre)
         {
 

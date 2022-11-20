@@ -260,7 +260,7 @@
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.792F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnGuardar.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.btnGuardar.Location = new System.Drawing.Point(80, 445);
+            this.btnGuardar.Location = new System.Drawing.Point(136, 445);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(180, 48);
             this.btnGuardar.TabIndex = 1;
@@ -278,7 +278,7 @@
             this.btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnActualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.792F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnActualizar.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.btnActualizar.Location = new System.Drawing.Point(278, 445);
+            this.btnActualizar.Location = new System.Drawing.Point(393, 445);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(180, 48);
             this.btnActualizar.TabIndex = 2;
@@ -292,7 +292,7 @@
             this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.792F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnEliminar.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.btnEliminar.Location = new System.Drawing.Point(475, 445);
+            this.btnEliminar.Location = new System.Drawing.Point(664, 445);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(180, 48);
             this.btnEliminar.TabIndex = 3;

@@ -105,6 +105,8 @@ namespace Data
                         {
                             cmd.Parameters.AddWithValue("@id", id.Id);
                             int numberOfRows = cmd.ExecuteNonQuery();
+                           
+                            
                         }
                     }
                     conexion.Close();

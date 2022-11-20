@@ -23,12 +23,10 @@ namespace Services
             return libroHandler.Get();
 
         }
-
         public  void EliminarLibro(Libro eliminarId)
         {
             libroHandler.Delete(eliminarId);
         }
-
         //Sobreescribo Get()
         public List<Libro> ObtenerLibrosPorNombre(string filtro)
         {              

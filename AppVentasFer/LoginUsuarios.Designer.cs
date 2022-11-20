@@ -1,0 +1,134 @@
+﻿namespace AppVentasFer
+{
+    partial class frmLoginUsuarios
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.btnIngresar = new System.Windows.Forms.Button();
+            this.labelMailLogin = new System.Windows.Forms.Label();
+            this.labelContraseñaLogin = new System.Windows.Forms.Label();
+            this.txtMailLogin = new System.Windows.Forms.TextBox();
+            this.txtContraseñaLogin = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // btnIngresar
+            // 
+            this.btnIngresar.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnIngresar.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.824F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnIngresar.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnIngresar.Location = new System.Drawing.Point(354, 308);
+            this.btnIngresar.Name = "btnIngresar";
+            this.btnIngresar.Size = new System.Drawing.Size(245, 62);
+            this.btnIngresar.TabIndex = 0;
+            this.btnIngresar.Text = "Ingresar";
+            this.btnIngresar.UseVisualStyleBackColor = true;
+            this.btnIngresar.Click += new System.EventHandler(this.btnIngresar_Click);
+            // 
+            // labelMailLogin
+            // 
+            this.labelMailLogin.AutoSize = true;
+            this.labelMailLogin.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelMailLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.792F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelMailLogin.Location = new System.Drawing.Point(354, 100);
+            this.labelMailLogin.Name = "labelMailLogin";
+            this.labelMailLogin.Size = new System.Drawing.Size(50, 20);
+            this.labelMailLogin.TabIndex = 1;
+            this.labelMailLogin.Text = "Mail :";
+            // 
+            // labelContraseñaLogin
+            // 
+            this.labelContraseñaLogin.AutoSize = true;
+            this.labelContraseñaLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.792F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelContraseñaLogin.Location = new System.Drawing.Point(299, 167);
+            this.labelContraseñaLogin.Name = "labelContraseñaLogin";
+            this.labelContraseñaLogin.Size = new System.Drawing.Size(105, 20);
+            this.labelContraseñaLogin.TabIndex = 2;
+            this.labelContraseñaLogin.Text = "Contraseña :";
+            // 
+            // txtMailLogin
+            // 
+            this.txtMailLogin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMailLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.792F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtMailLogin.Location = new System.Drawing.Point(443, 100);
+            this.txtMailLogin.Name = "txtMailLogin";
+            this.txtMailLogin.PlaceholderText = "Ingresar mail";
+            this.txtMailLogin.Size = new System.Drawing.Size(198, 27);
+            this.txtMailLogin.TabIndex = 3;
+            // 
+            // txtContraseñaLogin
+            // 
+            this.txtContraseñaLogin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtContraseñaLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.792F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtContraseñaLogin.Location = new System.Drawing.Point(443, 165);
+            this.txtContraseñaLogin.Name = "txtContraseñaLogin";
+            this.txtContraseñaLogin.PasswordChar = '*';
+            this.txtContraseñaLogin.PlaceholderText = "Ingresar contraseña";
+            this.txtContraseñaLogin.Size = new System.Drawing.Size(198, 27);
+            this.txtContraseñaLogin.TabIndex = 4;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::AppVentasFer.Properties.Resources.icono_de_usuario;
+            this.pictureBox1.Location = new System.Drawing.Point(25, 79);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(257, 263);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
+            // 
+            // frmLoginUsuarios
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(675, 389);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.txtContraseñaLogin);
+            this.Controls.Add(this.txtMailLogin);
+            this.Controls.Add(this.labelContraseñaLogin);
+            this.Controls.Add(this.labelMailLogin);
+            this.Controls.Add(this.btnIngresar);
+            this.Name = "frmLoginUsuarios";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "LOGIN";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Button btnIngresar;
+        private System.Windows.Forms.Label labelMailLogin;
+        private System.Windows.Forms.Label labelContraseñaLogin;
+        private System.Windows.Forms.TextBox txtMailLogin;
+        private System.Windows.Forms.TextBox txtContraseñaLogin;
+        private System.Windows.Forms.PictureBox pictureBox1;
+    }
+}

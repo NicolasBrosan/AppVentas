@@ -19,17 +19,14 @@ namespace Data
                 try
                 {
                     var queryInsertUsuario = "INSERT INTO Usuario (Password, Mail, IdCliente) VALUES (@password, @mail, @idCliente)";
-                    var password = new SqlParameter("Password", System.Data.SqlDbType.VarChar) { Value = usuario.Password };
-                    var mail = new SqlParameter("Mail", SqlDbType.VarChar) { Value = usuario.Mail };
-                    var idCliente = new SqlParameter("IdCliente", System.Data.SqlDbType.Int) { Value = usuario.IdCliente };
-
+                    
                     conexion.Open();
                     
                     using (SqlCommand cmd = new SqlCommand(queryInsertUsuario, conexion))
                     {
-                        cmd.Parameters.Add(password);
-                        cmd.Parameters.Add(mail);
-                        cmd.Parameters.Add(idCliente);
+                        cmd.Parameters.AddWithValue("@password", usuario.Password);
+                        cmd.Parameters.AddWithValue("@mail", usuario.Mail);
+                        cmd.Parameters.AddWithValue("@idCliente", usuario.IdCliente);
 
                         int numberOfRows = cmd.ExecuteNonQuery();
                     }
@@ -46,7 +43,7 @@ namespace Data
             
         } 
 
-        public Usuario LoginUsuario(string password, string mail)
+        public Usuario LoginUsuario(string mail, string password)
         {
            var usuario = new Usuario();
             using(SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
@@ -85,6 +82,46 @@ namespace Data
                     usuario.Mail = "El mail o la contraseña es incorrecta";
                     return usuario;                   
                 }
+            }
+        }
+
+        public List<Usuario> Get()
+        {
+            List<Usuario> usuarios = new List<Usuario>();
+            using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
+            {
+                try
+                {
+                    var queryGetUsuarios = "SELECT * FROM Usuario";
+                    using(SqlCommand cmd = new SqlCommand(queryGetUsuarios, conexion))
+                    {
+                        conexion.Open();
+                        using(SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                while (reader.Read())
+                                {
+                                    Usuario usuario = new Usuario();
+                                    usuario.Mail = reader["Mail"].ToString();
+                                    usuario.Password = reader["Password"].ToString();
+                                    usuario.IdCliente = Guid.Parse(reader["IdCliente"].ToString());
+
+                                    usuarios.Add(usuario);
+                                }
+                            }
+                        }
+                    }
+                    conexion.Close();
+
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine(ex.Message);
+                }
+
+                return usuarios;
             }
         }
 

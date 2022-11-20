@@ -6,7 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 
-namespace Data
+namespace Data 
 {
     public class ClienteHandler : ICrud<Cliente>
     {
@@ -148,7 +148,7 @@ namespace Data
                                 while (reader.Read())
                                 {
                                     var cliente = new Cliente();
-                                    cliente.Id = Convert.ToInt32(reader["Id"]);
+                                    cliente.Id = Guid.Parse(reader["Id"].ToString());
                                     cliente.Nombre = reader["Nombre"].ToString();
                                     cliente.Apellido = reader["Apellido"].ToString();
                                     cliente.Telefono = Convert.ToInt32(reader["Telefono"]);
