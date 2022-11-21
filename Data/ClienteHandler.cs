@@ -1,4 +1,5 @@
 ﻿using Data.Interface;
+using Domain.Autenticacion;
 using Domain.Negocio;
 using System;
 using System.Collections.Generic;
@@ -13,30 +14,25 @@ namespace Data
         ConnectionDB cnn = new ConnectionDB();
         public void Insert(Cliente cliente)
         {
+            
             using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
             {
                 try
                 {
-                    var query = "INSERT INTO Cliente (Nombre, Apellido, Telefono, Direccion, Localidad, Provincia, Tarjeta) " +
-                        "VALUES (@nombre, @apellido, @telefono, @direccion, @localidad, @provincia, @tarjeta)";
-                    SqlParameter nombre = new SqlParameter("Nombre", System.Data.SqlDbType.VarChar) { Value = cliente.Nombre };
-                    SqlParameter apellido = new SqlParameter("Apellido", System.Data.SqlDbType.VarChar) { Value = cliente.Apellido };
-                    SqlParameter telefono = new SqlParameter("Telefono", System.Data.SqlDbType.Int) { Value = cliente.Telefono };
-                    SqlParameter direccion = new SqlParameter("Direccion", System.Data.SqlDbType.VarChar) { Value = cliente.Direccion };
-                    SqlParameter localidad = new SqlParameter("Localidad", System.Data.SqlDbType.VarChar) { Value = cliente.Localidad };
-                    SqlParameter provincia = new SqlParameter("Provincia", System.Data.SqlDbType.VarChar) { Value = cliente.Provincia };
-                    SqlParameter tarjeta = new SqlParameter("Tarjeta", System.Data.SqlDbType.BigInt) { Value = cliente.Tarjeta };
-
+                    var query = "INSERT INTO Cliente (Id, Nombre, Apellido, Telefono, Direccion, Localidad, Provincia, Tarjeta) " +
+                        "VALUES (@id, @nombre, @apellido, @telefono, @direccion, @localidad, @provincia, @tarjeta)";
+                    //var query2 = "INSERT INTO Cliente (Id) SELECT IdCliente FROM Usuario";
                     conexion.Open();
                     using (SqlCommand cmd = new SqlCommand(query, conexion))
                     {
-                        cmd.Parameters.Add(nombre);
-                        cmd.Parameters.Add(apellido);
-                        cmd.Parameters.Add(telefono);
-                        cmd.Parameters.Add(direccion);
-                        cmd.Parameters.Add(localidad);
-                        cmd.Parameters.Add(provincia);
-                        cmd.Parameters.Add(tarjeta);
+                        cmd.Parameters.AddWithValue("@id", cliente.Id);
+                        cmd.Parameters.AddWithValue("@nombre", cliente.Nombre);
+                        cmd.Parameters.AddWithValue("@apellido", cliente.Apellido);
+                        cmd.Parameters.AddWithValue("@telefono", cliente.Telefono);
+                        cmd.Parameters.AddWithValue("@direccion", cliente.Direccion);
+                        cmd.Parameters.AddWithValue("@localidad", cliente.Localidad);
+                        cmd.Parameters.AddWithValue("@provincia", cliente.Provincia);
+                        cmd.Parameters.AddWithValue("@tarjeta", cliente.Tarjeta);
 
                         int numberOfRows = cmd.ExecuteNonQuery();
                     }
