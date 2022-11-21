@@ -9,7 +9,7 @@ using System.Data;
 
 namespace Data
 {
-    public class UsuarioHandler
+    public class UsuarioHandler //// no tiene la interfaz ICRUD
     {
         ConnectionDB cnn = new ConnectionDB();
         public void RegistrarUsuario (Usuario usuario)
