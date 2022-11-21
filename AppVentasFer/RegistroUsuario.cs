@@ -33,33 +33,44 @@ namespace AppVentasFer
                 MessageBox.Show("El mail ingresado ya se encuentra registrado");
                 Limpiar();
             }
-            else if (ValidarNulo())
+            else if (ValidarNulo(txtMail.Text, "Sin ingresar datos"))
             {
                 var usuarioService = new UsuariosService();
                 usuarioService.RegistrarUsuario(usuario);
                 Limpiar();
                 frmDatosCliente datosCliente = new frmDatosCliente();
+                datosCliente.Usuario = usuario;
                 datosCliente.ShowDialog();
 
             }
 
         }
 
-        private bool ValidarNulo()
+        private bool ValidarNulo(string txtForm, string message)
         {
-            var resultado = true;
-            if (txtMail.Text == "")
+            #region CodigoUno
+            //var resultado = true;
+            //if (txtMail.Text == "")
+            //{
+            //    resultado = false;
+            //    MessageBox.Show("Ingrese su mail");
+            //}
+            //if (txtContraseña.Text == "")
+            //{
+            //    resultado = false;
+            //    MessageBox.Show("Ingrese su contraseña");
+            //}
+
+            //return resultado;
+            #endregion
+
+            if(txtForm == string.Empty)
             {
-                resultado = false;
-                MessageBox.Show("Ingrese su mail");
-            }
-            if (txtContraseña.Text == "")
-            {
-                resultado = false;
-                MessageBox.Show("Ingrese su contraseña");
+                MessageBox.Show(message);
+                return true;
             }
 
-            return resultado;
+            return false;
         }
         private bool ValidarRepetido(string mail)
         {
@@ -71,8 +82,8 @@ namespace AppVentasFer
         }
         private void Limpiar()
         {
-            txtContraseña.Text = String.Empty;
-            txtMail.Text = String.Empty;
+            txtContraseña.Text = string.Empty;
+            txtMail.Text = string.Empty;
         }
     }
 }

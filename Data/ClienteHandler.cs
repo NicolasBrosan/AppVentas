@@ -7,22 +7,24 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 
-namespace Data 
+namespace Data
 {
     public class ClienteHandler : ICrud<Cliente>
     {
         ConnectionDB cnn = new ConnectionDB();
         public void Insert(Cliente cliente)
         {
-            
+
             using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
             {
                 try
                 {
+
                     var query = "INSERT INTO Cliente (Id, Nombre, Apellido, Telefono, Direccion, Localidad, Provincia, Tarjeta) " +
                         "VALUES (@id, @nombre, @apellido, @telefono, @direccion, @localidad, @provincia, @tarjeta)";
-                    //var query2 = "INSERT INTO Cliente (Id) SELECT IdCliente FROM Usuario";
+
                     conexion.Open();
+
                     using (SqlCommand cmd = new SqlCommand(query, conexion))
                     {
                         cmd.Parameters.AddWithValue("@id", cliente.Id);
@@ -34,7 +36,7 @@ namespace Data
                         cmd.Parameters.AddWithValue("@provincia", cliente.Provincia);
                         cmd.Parameters.AddWithValue("@tarjeta", cliente.Tarjeta);
 
-                        int numberOfRows = cmd.ExecuteNonQuery();
+                        cmd.ExecuteNonQuery();
                     }
 
                     conexion.Close();
@@ -78,7 +80,7 @@ namespace Data
                         cmd.Parameters.Add(id);
 
                         int numberOfRows = cmd.ExecuteNonQuery();
-                        if(numberOfRows > 0)
+                        if (numberOfRows > 0)
                         {
                             resultado = true;
                         }
@@ -151,7 +153,7 @@ namespace Data
                                     cliente.Direccion = reader["Direccion"].ToString();
                                     cliente.Localidad = reader["Localidad"].ToString();
                                     cliente.Provincia = reader["Provincia"].ToString();
-                                    cliente.Tarjeta = Convert.ToInt32(reader["Tarjeta"]);
+                                    cliente.Tarjeta = Convert.ToInt64(reader["Tarjeta"]);
 
                                     clientes.Add(cliente);
                                 }

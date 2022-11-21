@@ -1,6 +1,7 @@
 ﻿using Data;
 using Domain.Negocio;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,6 +13,14 @@ namespace Services
         public void GuardarCliente(Cliente cliente)
         {
             clienteHandler.Insert(cliente);
+        }
+
+        public List<Cliente> BuscarXNombre(string nombre)
+        {
+            var cliente = clienteHandler.Get();
+            var clienteBuscado = cliente.Where(cliente => cliente.Nombre.Contains(nombre));
+
+            return clienteBuscado.ToList();
         }
     }
 }

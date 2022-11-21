@@ -53,8 +53,8 @@ namespace AppVentasFer
 
         private void Limpiar()
         {
-            txtContraseñaLogin.Text = String.Empty;
-            txtMailLogin.Text = String.Empty;
+            txtContraseñaLogin.Text = string.Empty;
+            txtMailLogin.Text = string.Empty;
         }
     }
 }
