@@ -33,7 +33,11 @@ namespace AppVentasFer
                 MessageBox.Show("El mail ingresado ya se encuentra registrado");
                 Limpiar();
             }
-            else if (ValidarNulo(txtMail.Text, "Sin ingresar datos"))
+            else if (ValidarNulo(txtMail.Text, "Ingrese su mail"))
+            {               
+                Limpiar();
+            }
+            else if (ValidarNulo(txtContraseña.Text, "Ingrese contraseña") == false)
             {
                 var usuarioService = new UsuariosService();
                 usuarioService.RegistrarUsuario(usuario);
@@ -41,7 +45,6 @@ namespace AppVentasFer
                 frmDatosCliente datosCliente = new frmDatosCliente();
                 datosCliente.Usuario = usuario;
                 datosCliente.ShowDialog();
-
             }
 
         }
@@ -64,7 +67,7 @@ namespace AppVentasFer
             //return resultado;
             #endregion
 
-            if(txtForm == string.Empty)
+            if (txtForm == string.Empty)
             {
                 MessageBox.Show(message);
                 return true;

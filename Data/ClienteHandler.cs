@@ -20,8 +20,8 @@ namespace Data
                 try
                 {
 
-                    var query = "INSERT INTO Cliente (Id, Nombre, Apellido, Telefono, Direccion, Localidad, Provincia, Tarjeta) " +
-                        "VALUES (@id, @nombre, @apellido, @telefono, @direccion, @localidad, @provincia, @tarjeta)";
+                    var query = "INSERT INTO Cliente (Id, Nombre, Apellido, DNI, Telefono, Direccion, Localidad, Provincia, Tarjeta) " +
+                        "VALUES (@id, @nombre, @apellido, @dni, @telefono, @direccion, @localidad, @provincia, @tarjeta)";
 
                     conexion.Open();
 
@@ -30,6 +30,7 @@ namespace Data
                         cmd.Parameters.AddWithValue("@id", cliente.Id);
                         cmd.Parameters.AddWithValue("@nombre", cliente.Nombre);
                         cmd.Parameters.AddWithValue("@apellido", cliente.Apellido);
+                        cmd.Parameters.AddWithValue("@dni", cliente.DNI);
                         cmd.Parameters.AddWithValue("@telefono", cliente.Telefono);
                         cmd.Parameters.AddWithValue("@direccion", cliente.Direccion);
                         cmd.Parameters.AddWithValue("@localidad", cliente.Localidad);
@@ -55,11 +56,12 @@ namespace Data
             {
                 try
                 {
-                    var queryUpCliente = "UPDATE [DB_VentaLibros].[dbo].[Cliente] SET Nombre = @nombre, Apellido = @apellido, Telefono = @telefono, Direccion = @direccion, Localidad = @localidad, Provincia = @provincia, Tarjeta = @tarjeta " +
+                    var queryUpCliente = "UPDATE [DB_VentaLibros].[dbo].[Cliente] SET Nombre = @nombre, Apellido = @apellido, DNI = @dni, Telefono = @telefono, Direccion = @direccion, Localidad = @localidad, Provincia = @provincia, Tarjeta = @tarjeta " +
                         "WHERE Id = @id";
 
                     SqlParameter nombre = new SqlParameter("nombre", System.Data.SqlDbType.VarChar) { Value = cliente.Nombre };
                     SqlParameter apellido = new SqlParameter("apellido", System.Data.SqlDbType.VarChar) { Value = cliente.Apellido };
+                    SqlParameter dni = new SqlParameter("DNI", System.Data.SqlDbType.BigInt) { Value = cliente.DNI };
                     SqlParameter telefono = new SqlParameter("telefono", System.Data.SqlDbType.Int) { Value = cliente.Telefono };
                     SqlParameter direccion = new SqlParameter("direccion", System.Data.SqlDbType.VarChar) { Value = cliente.Direccion };
                     SqlParameter localidad = new SqlParameter("localidad", System.Data.SqlDbType.VarChar) { Value = cliente.Localidad };
@@ -72,6 +74,7 @@ namespace Data
                     {
                         cmd.Parameters.Add(nombre);
                         cmd.Parameters.Add(apellido);
+                        cmd.Parameters.Add(dni);
                         cmd.Parameters.Add(telefono);
                         cmd.Parameters.Add(direccion);
                         cmd.Parameters.Add(localidad);
@@ -149,6 +152,7 @@ namespace Data
                                     cliente.Id = Guid.Parse(reader["Id"].ToString());
                                     cliente.Nombre = reader["Nombre"].ToString();
                                     cliente.Apellido = reader["Apellido"].ToString();
+                                    cliente.DNI = Convert.ToInt32(reader["DNI"]);
                                     cliente.Telefono = Convert.ToInt32(reader["Telefono"]);
                                     cliente.Direccion = reader["Direccion"].ToString();
                                     cliente.Localidad = reader["Localidad"].ToString();
