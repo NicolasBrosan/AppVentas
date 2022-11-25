@@ -15,10 +15,10 @@ namespace Services
             clienteHandler.Insert(cliente);
         }
 
-        public List<Cliente> BuscarXDNI(int dni)
+        public List<Cliente> BuscarXDNI(Guid id)
         {
             var cliente = clienteHandler.Get();
-            var clienteBuscado = cliente.Where(cliente => cliente.DNI.Equals(dni));
+            var clienteBuscado = cliente.Where(cliente => cliente.Id.Equals(id));
 
             return clienteBuscado.ToList();
         }

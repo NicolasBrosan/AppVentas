@@ -1,0 +1,4 @@
+No se guardan los datos en Cliente, me figura el siguiente error: 
+"Arithmetic overflow error converting expression to data type int. The statement has been terminated."
+
+Tengo que averiguar qué es lo que provoca esto!!!

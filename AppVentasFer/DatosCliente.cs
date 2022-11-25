@@ -26,11 +26,7 @@ namespace AppVentasFer
 
             cliente.Id = Usuario.IdCliente;
             cliente.Nombre = txtNombre.Text;
-            cliente.Apellido = txtApellido.Text;
-            if (int.TryParse(txtDni.Text, out var nuevoDni))
-            {
-                cliente.DNI = nuevoDni;
-            }
+            cliente.Apellido = txtApellido.Text;           
             cliente.Direccion = txtDireccion.Text;
             cliente.Localidad = txtLocalidad.Text;
             cliente.Provincia = txtProvincia.Text;
@@ -43,7 +39,7 @@ namespace AppVentasFer
                 cliente.Tarjeta = nuevaTarjeta;
             }
 
-            var dniRepetido = ClienteRepetido(cliente.DNI);
+            var dniRepetido = ClienteRepetido(cliente.Id);
             if (dniRepetido)
             {
                 MessageBox.Show("Cliente ya existente");
@@ -59,15 +55,15 @@ namespace AppVentasFer
 
         }
 
-        private bool ClienteRepetido(int dni)
+        private bool ClienteRepetido(Guid id)
         {
             #region Comentarios de lo que necesitaba
             // se necesita ingresar DNI a las properties de Cliente para poder validar datos repetidos,
             // dado que tanto Nombre y Apellido se pueden repetir.
             #endregion
             var clienteService = new ClienteService();
-            var clientes = clienteService.BuscarXDNI(dni);
-            var valorRepetido = clientes.Any(clientes => clientes.DNI == dni);
+            var clientes = clienteService.BuscarXDNI(id);
+            var valorRepetido = clientes.Any(clientes => clientes.Id == id);
             return valorRepetido;
         }
     }
