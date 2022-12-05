@@ -13,6 +13,5 @@ namespace Domain.Negocio
         public string Direccion { get; set; }
         public string Localidad { get; set; }
         public string Provincia { get; set; }
-        public long Tarjeta { get; set; }
     }
 }

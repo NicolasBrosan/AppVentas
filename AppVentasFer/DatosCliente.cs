@@ -26,7 +26,7 @@ namespace AppVentasFer
 
             cliente.Id = Usuario.IdCliente;
             cliente.Nombre = txtNombre.Text;
-            cliente.Apellido = txtApellido.Text;           
+            cliente.Apellido = txtApellido.Text;
             cliente.Direccion = txtDireccion.Text;
             cliente.Localidad = txtLocalidad.Text;
             cliente.Provincia = txtProvincia.Text;
@@ -34,10 +34,7 @@ namespace AppVentasFer
             {
                 cliente.Telefono = nuevoTelefono;
             }
-            if (long.TryParse(txtTarjeta.Text, out var nuevaTarjeta))
-            {
-                cliente.Tarjeta = nuevaTarjeta;
-            }
+
 
             var dniRepetido = ClienteRepetido(cliente.Id);
             if (dniRepetido)
@@ -48,11 +45,13 @@ namespace AppVentasFer
             {
                 var clienteService = new ClienteService();
                 clienteService.GuardarCliente(cliente);
-                
+                Limpiar();
+                frmLoginUsuarios login = new frmLoginUsuarios();
+                login.Show();
+
+                this.Close();
             }
-
             
-
         }
 
         private bool ClienteRepetido(Guid id)
@@ -65,6 +64,17 @@ namespace AppVentasFer
             var clientes = clienteService.BuscarXDNI(id);
             var valorRepetido = clientes.Any(clientes => clientes.Id == id);
             return valorRepetido;
+        }
+        private void Limpiar()
+        {
+
+            txtNombre.Text = string.Empty;
+            txtApellido.Text = string.Empty;
+            txtDireccion.Text = string.Empty;
+            txtLocalidad.Text = string.Empty;
+            txtProvincia.Text = string.Empty;
+            txtTelefono.Text = string.Empty;
+
         }
     }
 }

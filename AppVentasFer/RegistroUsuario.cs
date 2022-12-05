@@ -44,8 +44,12 @@ namespace AppVentasFer
                 Limpiar();
                 frmDatosCliente datosCliente = new frmDatosCliente();
                 datosCliente.Usuario = usuario;
-                datosCliente.ShowDialog();
+                datosCliente.Show();
+
+                this.Hide();
+                
             }
+
 
         }
 

@@ -22,16 +22,19 @@ namespace AppVentasFer
             Usuario usuarioLogin = new Usuario();
             usuarioLogin.Mail = txtMailLogin.Text;
             usuarioLogin.Password = txtContraseñaLogin.Text;
-            
+
             ValidarNulo();
             if (ValidarNulo())
             {
                 var usuarioService = new UsuariosService();
-                usuarioService.LoginUsuario(usuarioLogin.Mail, usuarioLogin.Password);               
+                usuarioService.LoginUsuario(usuarioLogin.Mail, usuarioLogin.Password);
+                //if(usuarioService is )
                 Limpiar();
-                
+                frmDatosCliente cliente = new frmDatosCliente();
+                cliente.Show();
+
             }
-            
+
         }
 
         private bool ValidarNulo()

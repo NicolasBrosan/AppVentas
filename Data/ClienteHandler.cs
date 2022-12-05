@@ -20,8 +20,8 @@ namespace Data
                 try
                 {
 
-                    var query = "INSERT INTO Cliente (Id, Nombre, Apellido, Telefono, Direccion, Localidad, Provincia, Tarjeta) " +
-                        "VALUES (@id, @nombre, @apellido, @telefono, @direccion, @localidad, @provincia, @tarjeta)";
+                    var query = "INSERT INTO Cliente (Id, Nombre, Apellido, Telefono, Direccion, Localidad, Provincia) " +
+                        "VALUES (@id, @nombre, @apellido, @telefono, @direccion, @localidad, @provincia)";
 
                     conexion.Open();
 
@@ -34,7 +34,6 @@ namespace Data
                         cmd.Parameters.AddWithValue("@direccion", cliente.Direccion);
                         cmd.Parameters.AddWithValue("@localidad", cliente.Localidad);
                         cmd.Parameters.AddWithValue("@provincia", cliente.Provincia);
-                        cmd.Parameters.AddWithValue("@tarjeta", cliente.Tarjeta);
 
                         cmd.ExecuteNonQuery();
                     }
@@ -55,7 +54,7 @@ namespace Data
             {
                 try
                 {
-                    var queryUpCliente = "UPDATE [DB_VentaLibros].[dbo].[Cliente] SET Nombre = @nombre, Apellido = @apellido, Telefono = @telefono, Direccion = @direccion, Localidad = @localidad, Provincia = @provincia, Tarjeta = @tarjeta " +
+                    var queryUpCliente = "UPDATE [DB_VentaLibros].[dbo].[Cliente] SET Nombre = @nombre, Apellido = @apellido, Telefono = @telefono, Direccion = @direccion, Localidad = @localidad, Provincia = @provincia " +
                         "WHERE Id = @id";
 
                     SqlParameter nombre = new SqlParameter("nombre", System.Data.SqlDbType.VarChar) { Value = cliente.Nombre };
@@ -64,7 +63,6 @@ namespace Data
                     SqlParameter direccion = new SqlParameter("direccion", System.Data.SqlDbType.VarChar) { Value = cliente.Direccion };
                     SqlParameter localidad = new SqlParameter("localidad", System.Data.SqlDbType.VarChar) { Value = cliente.Localidad };
                     SqlParameter provincia = new SqlParameter("provincia", System.Data.SqlDbType.VarChar) { Value = cliente.Provincia };
-                    SqlParameter tarjeta = new SqlParameter("tarjeta", System.Data.SqlDbType.BigInt) { Value = cliente.Tarjeta };
                     SqlParameter id = new SqlParameter("id", System.Data.SqlDbType.Int) { Value = cliente.Id };
 
                     conexion.Open();
@@ -76,7 +74,6 @@ namespace Data
                         cmd.Parameters.Add(direccion);
                         cmd.Parameters.Add(localidad);
                         cmd.Parameters.Add(provincia);
-                        cmd.Parameters.Add(tarjeta);
                         cmd.Parameters.Add(id);
 
                         int numberOfRows = cmd.ExecuteNonQuery();
@@ -153,7 +150,6 @@ namespace Data
                                     cliente.Direccion = reader["Direccion"].ToString();
                                     cliente.Localidad = reader["Localidad"].ToString();
                                     cliente.Provincia = reader["Provincia"].ToString();
-                                    cliente.Tarjeta = Convert.ToInt64(reader["Tarjeta"]);
 
                                     clientes.Add(cliente);
                                 }

@@ -50,7 +50,7 @@ namespace Data
             {                                           
                 try
                 {
-                    var queryLogin = "SELECT * FROM Usuario WHERE Mail = @mail AND Password = @password";
+                    var queryLogin = "SELECT Mail, Password FROM Usuario WHERE Mail=@mail AND Password=@password";
 
                     conexion.Open();
                     
