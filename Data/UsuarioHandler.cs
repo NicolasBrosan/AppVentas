@@ -43,8 +43,9 @@ namespace Data
             
         } 
 
-        public Usuario LoginUsuario(string mail, string password)
+        public bool LoginUsuario(string mail, string password)
         {
+            var comprobacion = false;
            var usuario = new Usuario();
             using(SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
             {                                           
@@ -66,21 +67,33 @@ namespace Data
                             {
                                 while (reader.Read())
                                 {
-                                    usuario.Id = Convert.ToInt32(reader["Id"]);
-                                    usuario.Mail = reader["Mail"].ToString();
-                                    usuario.Password = reader["Password"].ToString();
+                                    comprobacion = true;
+                                    //usuario.Id = Convert.ToInt32(reader["Id"]);
+                                    //usuario.Mail = reader["Mail"].ToString();
+                                    //usuario.Password = reader["Password"].ToString();
                                 }
+
+
                             }
                         }
                     }
                     conexion.Close();
 
-                    return usuario;
+                    //if (usuario == null)
+                    //{
+                    //    usuario.Mail = "El mail o la contraseña es incorrecta";
+                    //    return usuario;
+                    //}
+
+
+                    return comprobacion;
+
+                    
                 }
                 catch (Exception)
                 {
                     usuario.Mail = "El mail o la contraseña es incorrecta";
-                    return usuario;                   
+                    return comprobacion;                   
                 }
             }
         }

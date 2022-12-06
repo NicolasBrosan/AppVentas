@@ -27,11 +27,19 @@ namespace AppVentasFer
             if (ValidarNulo())
             {
                 var usuarioService = new UsuariosService();
-                usuarioService.LoginUsuario(usuarioLogin.Mail, usuarioLogin.Password);
-                //if(usuarioService is )
+                var log = usuarioService.LoginUsuario(usuarioLogin.Mail, usuarioLogin.Password);
+                
                 Limpiar();
-                frmDatosCliente cliente = new frmDatosCliente();
-                cliente.Show();
+                if(!log)
+                {
+                    MessageBox.Show("No es posible acceder");
+                }
+                else
+                {
+                    frmDatosCliente cliente = new frmDatosCliente();
+                    cliente.Show();
+                }
+                
 
             }
 
