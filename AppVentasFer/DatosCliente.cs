@@ -61,7 +61,7 @@ namespace AppVentasFer
             // dado que tanto Nombre y Apellido se pueden repetir.
             #endregion
             var clienteService = new ClienteService();
-            var clientes = clienteService.BuscarXDNI(id);
+            var clientes = clienteService.BuscarPorDNI(id);
             var valorRepetido = clientes.Any(clientes => clientes.Id == id);
             return valorRepetido;
         }

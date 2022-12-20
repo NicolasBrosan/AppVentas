@@ -19,7 +19,7 @@ namespace Services
         {
             return usuarioHandler.LoginUsuario(mail, pass);
         }
-        public List<Usuario> BuscarXMail(string usuarioRepetido)
+        public List<Usuario> BuscarPorMail(string usuarioRepetido)
         {
             var usuario = usuarioHandler.Get();
             var resultado = usuario.Where(usuario => usuario.Mail.Contains(usuarioRepetido));

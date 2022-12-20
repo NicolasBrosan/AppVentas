@@ -16,7 +16,7 @@ namespace Services
         }
         public void ActualizarLibro(Libro actualizarLibro)
         {
-            libroHandler.Update(actualizarLibro);
+            libroHandler.Update(actualizarLibro);//Tendría que devolver lo que devuelve el Handler. REVISAR
         }
         public List<Libro> ObtenerLibros()
         {

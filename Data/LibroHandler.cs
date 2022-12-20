@@ -3,19 +3,20 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using Data.Interface;
+using Data.QueryHelper;
 
 namespace Data
 {
     public class LibroHandler : ICrud<Libro>
     {
-        ConnectionDB cnn = new ConnectionDB();
+        private readonly ConnectionDB cnn = new ConnectionDB();//Colocar private readonly
         public void Insert(Libro libro)
         {
             using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
             {
                 try
                 {
-                    string queryLibro = "INSERT INTO Libro (Nombre, Autor, Editorial, Sinopsis, Precio, Stock) VALUES (@nombre, @autor, @editorial, @sinopsis, @precio, @stock)";
+                    string queryLibro = QueryLibro.Insert;
 
                     SqlParameter nombre = new SqlParameter("Nombre", System.Data.SqlDbType.VarChar) { Value = libro.Nombre };
                     SqlParameter autor = new SqlParameter("Autor", System.Data.SqlDbType.VarChar) { Value = libro.Autor };
@@ -52,7 +53,7 @@ namespace Data
             {
                 try
                 {
-                    string queryUpLibro = "UPDATE [DB_VentaLibros].[dbo].[Libro] SET Nombre = @nombre, Autor = @autor, Editorial = @editorial, Sinopsis = @sinopsis, Precio = @precio, Stock = @stock WHERE Id = @id";
+                    string queryUpLibro = QueryLibro.Update;
 
                     conexion.Open();
                     using (SqlCommand cmd = new SqlCommand(queryUpLibro, conexion))
@@ -66,7 +67,7 @@ namespace Data
                         cmd.Parameters.AddWithValue("@id", libro.Id);
 
                         var numberOfRows = cmd.ExecuteNonQuery();
-                        if(numberOfRows > 0)
+                        if (numberOfRows > 0)
                         {
                             resultado = true;
                         }
@@ -89,24 +90,16 @@ namespace Data
                 {
                     List<string> Querys = new List<string>();
 
-                    var queryDeletePV = "DELETE ProductoVendido FROM Libro AS L INNER JOIN ProductoVendido AS PV on L.ID = PV.IDLIBRO WHERE L.ID = @id";
-                    Querys.Add(queryDeletePV);
-
-                    string queryDtLibro = "DELETE FROM Libro WHERE Id = @id";
+                    string queryDtLibro = QueryLibro.Delete;
                     Querys.Add(queryDtLibro);
 
                     conexion.Open();
                     foreach (var query in Querys)
                     {
-                        //SqlParameter sqlParameter = new SqlParameter("id", System.Data.SqlDbType.BigInt);
-                        //sqlParameter.Value = id;
-
                         using (SqlCommand cmd = new SqlCommand(query, conexion))
                         {
                             cmd.Parameters.AddWithValue("@id", id.Id);
                             int numberOfRows = cmd.ExecuteNonQuery();
-                           
-                            
                         }
                     }
                     conexion.Close();
@@ -127,7 +120,7 @@ namespace Data
             {
                 try
                 {
-                    var queryGetLibros = "SELECT * FROM Libro";
+                    var queryGetLibros = QueryLibro.Get;
                     using (SqlCommand cmd = new SqlCommand(queryGetLibros, conexion))
                     {
                         conexion.Open();
@@ -163,14 +156,14 @@ namespace Data
 
         }
 
-        public List<Libro> Get(string letra)
+        public List<Libro> GetByName(string letra)
         {
             List<Libro> librosFiltrados = new List<Libro>();
             using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
             {
                 try
                 {
-                    var queryFiltrar = "SELECT * FROM Libro WHERE Nombre LIKE @nombre";
+                    var queryFiltrar = QueryLibro.GetByName;
 
                     conexion.Open();
 
@@ -214,14 +207,14 @@ namespace Data
             }
         }
 
-        public List<Libro> GetId(int id)
+        public List<Libro> GetById(int id)
         {
             var libroId = new List<Libro>();
             using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
             {
                 try
                 {
-                    var queryId = "SELECT * FROM Libro WHERE Id = @id";
+                    var queryId = QueryLibro.GetById;
                     SqlParameter bookId = new SqlParameter("Id", System.Data.SqlDbType.Int) { Value = id };
 
                     conexion.Open();

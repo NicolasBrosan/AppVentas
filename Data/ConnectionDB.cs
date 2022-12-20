@@ -11,6 +11,7 @@ namespace Data
         private string connection;
         public string CConnection(string DB)
         {
+            //No es necesario el try/catch, porque solamente devuelve un string y no chequea nada en la BD.
             try
             {
                 connection = ConfigurationManager.ConnectionStrings[DB].ConnectionString;

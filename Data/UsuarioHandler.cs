@@ -12,16 +12,16 @@ namespace Data
     public class UsuarioHandler
     {
         ConnectionDB cnn = new ConnectionDB();
-        public void RegistrarUsuario (Usuario usuario)
+        public void RegistrarUsuario(Usuario usuario)
         {
-            using(SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
+            using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
             {
                 try
                 {
                     var queryInsertUsuario = "INSERT INTO Usuario (Password, Mail, IdCliente) VALUES (@password, @mail, @idCliente)";
-                    
+
                     conexion.Open();
-                    
+
                     using (SqlCommand cmd = new SqlCommand(queryInsertUsuario, conexion))
                     {
                         cmd.Parameters.AddWithValue("@password", usuario.Password);
@@ -40,60 +40,45 @@ namespace Data
                     Console.WriteLine(ex.Message);
                 }
             }
-            
-        } 
+
+        }
 
         public bool LoginUsuario(string mail, string password)
         {
             var comprobacion = false;
-           var usuario = new Usuario();
-            using(SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
-            {                                           
+            var usuario = new Usuario();
+            using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
+            {
                 try
                 {
                     var queryLogin = "SELECT Mail, Password FROM Usuario WHERE Mail=@mail AND Password=@password";
 
                     conexion.Open();
-                    
-                    using(SqlCommand cmdLogin = new SqlCommand(queryLogin, conexion))
+
+                    using (SqlCommand cmdLogin = new SqlCommand(queryLogin, conexion))
                     {
                         cmdLogin.Parameters.Add(new SqlParameter("Mail", System.Data.SqlDbType.VarChar) { Value = mail });
                         cmdLogin.Parameters.Add(new SqlParameter("Password", System.Data.SqlDbType.VarChar) { Value = password });
                         cmdLogin.ExecuteNonQuery();
 
-                        using(SqlDataReader reader = cmdLogin.ExecuteReader())
+                        using (SqlDataReader reader = cmdLogin.ExecuteReader())
                         {
                             if (reader.HasRows)
                             {
-                                while (reader.Read())
-                                {
-                                    comprobacion = true;
-                                    //usuario.Id = Convert.ToInt32(reader["Id"]);
-                                    //usuario.Mail = reader["Mail"].ToString();
-                                    //usuario.Password = reader["Password"].ToString();
-                                }
-
-
+                                comprobacion = true;
+                              
                             }
                         }
                     }
                     conexion.Close();
 
-                    //if (usuario == null)
-                    //{
-                    //    usuario.Mail = "El mail o la contraseña es incorrecta";
-                    //    return usuario;
-                    //}
-
-
                     return comprobacion;
 
-                    
                 }
                 catch (Exception)
                 {
                     usuario.Mail = "El mail o la contraseña es incorrecta";
-                    return comprobacion;                   
+                    return comprobacion;
                 }
             }
         }
@@ -106,10 +91,10 @@ namespace Data
                 try
                 {
                     var queryGetUsuarios = "SELECT * FROM Usuario";
-                    using(SqlCommand cmd = new SqlCommand(queryGetUsuarios, conexion))
+                    using (SqlCommand cmd = new SqlCommand(queryGetUsuarios, conexion))
                     {
                         conexion.Open();
-                        using(SqlDataReader reader = cmd.ExecuteReader())
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             if (reader.HasRows)
                             {
@@ -138,6 +123,6 @@ namespace Data
             }
         }
 
-       
+
     }
 }

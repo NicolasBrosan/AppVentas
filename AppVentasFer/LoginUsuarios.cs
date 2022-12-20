@@ -114,7 +114,7 @@ namespace AppVentasFer
         private bool ValidarRepetido(string mail)
         {
             var usuarioService = new UsuariosService();
-            var usuarios = usuarioService.BuscarXMail(mail);
+            var usuarios = usuarioService.BuscarPorMail(mail);
             var validacionDelUsuario = usuarios.Any(usuarios => usuarios.Mail == mail);
 
             return validacionDelUsuario;

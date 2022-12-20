@@ -1,4 +1,5 @@
 ﻿using Data.Interface;
+using Data.QueryHelper;
 using Domain.Autenticacion;
 using Domain.Negocio;
 using System;
@@ -11,22 +12,24 @@ namespace Data
 {
     public class ClienteHandler : ICrud<Cliente>
     {
-        ConnectionDB cnn = new ConnectionDB();
+        //Revisar si se pueden reutilizar los parámetros del Insert en el Update o en alguno de los otros métodos.
+
+        private readonly ConnectionDB cnn = new ConnectionDB();//los miembros de clase de deben reclarar como "private readonly".
         public void Insert(Cliente cliente)
         {
 
             using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
             {
                 try
-                {
-
-                    var query = "INSERT INTO Cliente (Id, Nombre, Apellido, Telefono, Direccion, Localidad, Provincia) " +
-                        "VALUES (@id, @nombre, @apellido, @telefono, @direccion, @localidad, @provincia)";
+                {                    
+                    var query = QueryCliente.Insert;
 
                     conexion.Open();
 
                     using (SqlCommand cmd = new SqlCommand(query, conexion))
                     {
+                        //Podría crear 2 Listas (una para las variables y otra para los datos del objeto cliente) de parámetros y luego recorrerla con un Foreach.
+                        //Revisar sobre funciones recursivas
                         cmd.Parameters.AddWithValue("@id", cliente.Id);
                         cmd.Parameters.AddWithValue("@nombre", cliente.Nombre);
                         cmd.Parameters.AddWithValue("@apellido", cliente.Apellido);
@@ -42,6 +45,7 @@ namespace Data
                 }
                 catch (Exception ex)
                 {
+                    //investigar cómo agregar nlog / serilog y sacar el log a un archivo ---- IMPORTANTE
                     Console.WriteLine($"No se pudo insertar los datos: {ex.Message}");
                 }
             }
@@ -54,8 +58,7 @@ namespace Data
             {
                 try
                 {
-                    var queryUpCliente = "UPDATE [DB_VentaLibros].[dbo].[Cliente] SET Nombre = @nombre, Apellido = @apellido, Telefono = @telefono, Direccion = @direccion, Localidad = @localidad, Provincia = @provincia " +
-                        "WHERE Id = @id";
+                    var queryUpCliente = QueryCliente.Update;
 
                     SqlParameter nombre = new SqlParameter("nombre", System.Data.SqlDbType.VarChar) { Value = cliente.Nombre };
                     SqlParameter apellido = new SqlParameter("apellido", System.Data.SqlDbType.VarChar) { Value = cliente.Apellido };
@@ -100,7 +103,8 @@ namespace Data
             {
                 try
                 {
-                    var queryDelCliente = "DELETE FROM Cliente WHERE Id = @id";
+                    var queryDelCliente = QueryCliente.Delete;
+
                     SqlParameter sqlParameter = new SqlParameter("id", System.Data.SqlDbType.BigInt);
                     sqlParameter.Value = id;
 
@@ -129,7 +133,7 @@ namespace Data
             {
                 try
                 {
-                    var queryGetCliente = "SELECT * FROM Cliente";
+                    var queryGetCliente = QueryCliente.Get;
 
                     using (SqlCommand cmd = new SqlCommand(queryGetCliente, conexion))
                     {
@@ -161,11 +165,13 @@ namespace Data
                         return clientes;
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    return null;
+                    Console.WriteLine(ex.Message);
+                    return null;//Preguntar qué puedo hacer acá??
                 }
             }
+
         }
     }
 }
