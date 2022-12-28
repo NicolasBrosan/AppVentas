@@ -1,0 +1,2 @@
+Ver como se puede reutilizar los parámetros del Insert en ClienteHandler para el Update sin que se perjudiquen los principios SOLID.
+

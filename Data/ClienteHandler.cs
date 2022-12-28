@@ -1,4 +1,5 @@
 ﻿using Data.Interface;
+using NLog;
 using Data.QueryHelper;
 using Domain.Autenticacion;
 using Domain.Negocio;
@@ -7,21 +8,21 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
+using NLog.Web;
 
 namespace Data
 {
     public class ClienteHandler : ICrud<Cliente>
     {
-        //Revisar si se pueden reutilizar los parámetros del Insert en el Update o en alguno de los otros métodos.
+        Logger logger = LogManager.GetCurrentClassLogger();//No me deja colocar 'var' para definir a la variable.
 
         private readonly ConnectionDB cnn = new ConnectionDB();//los miembros de clase de deben reclarar como "private readonly".
         public void Insert(Cliente cliente)
         {
-
             using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
             {
                 try
-                {                    
+                {
                     var query = QueryCliente.Insert;
 
                     conexion.Open();
@@ -29,7 +30,7 @@ namespace Data
                     using (SqlCommand cmd = new SqlCommand(query, conexion))
                     {
                         //Podría crear 2 Listas (una para las variables y otra para los datos del objeto cliente) de parámetros y luego recorrerla con un Foreach.
-                        //Revisar sobre funciones recursivas
+                        //Revisar sobre funciones recursivas --- Solo lectura
                         cmd.Parameters.AddWithValue("@id", cliente.Id);
                         cmd.Parameters.AddWithValue("@nombre", cliente.Nombre);
                         cmd.Parameters.AddWithValue("@apellido", cliente.Apellido);
@@ -44,9 +45,9 @@ namespace Data
                     conexion.Close();
                 }
                 catch (Exception ex)
-                {
-                    //investigar cómo agregar nlog / serilog y sacar el log a un archivo ---- IMPORTANTE
-                    Console.WriteLine($"No se pudo insertar los datos: {ex.Message}");
+                {                    
+                    //Se aplica Nlog
+                    logger.Error($"Error al insertar los datos {ex}");
                 }
             }
         }
@@ -91,7 +92,7 @@ namespace Data
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"No se pudo actualizar: {ex.Message}");
+                    logger.Error($"No se pudo actualizar: {ex}");
                 }
             }
             return resultado;
@@ -120,7 +121,7 @@ namespace Data
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"No se pudo eliminar el cliente: {ex.Message}");
+                    logger.Error($"No se pudo eliminar el cliente: {ex}");
                 }
             }
         }
@@ -161,17 +162,16 @@ namespace Data
 
                         }
                         conexion.Close();
-
-                        return clientes;
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
-                    return null;//Preguntar qué puedo hacer acá??
+                    logger.Error($"No se pudo realizar la operación {ex}");
                 }
-            }
 
+                return clientes;
+            }
         }
+
     }
 }
