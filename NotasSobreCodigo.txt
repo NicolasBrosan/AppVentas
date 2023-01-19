@@ -1,2 +1,3 @@
 Ver como se puede reutilizar los parámetros del Insert en ClienteHandler para el Update sin que se perjudiquen los principios SOLID.
 
+//Podría crear 2 Listas o Diccionarios (una para las variables y otra para los datos del objeto cliente) de parámetros y luego recorrerla con un Foreach. Se aplicaría después del using SqlCommand para los parámetros.

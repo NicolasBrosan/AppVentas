@@ -14,7 +14,7 @@ namespace Data
 {
     public class ClienteHandler : ICrud<Cliente>
     {
-        Logger logger = LogManager.GetCurrentClassLogger();//No me deja colocar 'var' para definir a la variable.
+        private readonly Logger logger = LogManager.GetCurrentClassLogger();//No se puede declarar 'var' porque es un miembro de clase, no es una variable.
 
         private readonly ConnectionDB cnn = new ConnectionDB();//los miembros de clase de deben reclarar como "private readonly".
         public void Insert(Cliente cliente)
@@ -29,12 +29,12 @@ namespace Data
 
                     using (SqlCommand cmd = new SqlCommand(query, conexion))
                     {
-                        //Podría crear 2 Listas (una para las variables y otra para los datos del objeto cliente) de parámetros y luego recorrerla con un Foreach.
-                        //Revisar sobre funciones recursivas --- Solo lectura
                         cmd.Parameters.AddWithValue("@id", cliente.Id);
                         cmd.Parameters.AddWithValue("@nombre", cliente.Nombre);
                         cmd.Parameters.AddWithValue("@apellido", cliente.Apellido);
+                        cmd.Parameters.AddWithValue("@mail", cliente.Mail);
                         cmd.Parameters.AddWithValue("@telefono", cliente.Telefono);
+                        cmd.Parameters.AddWithValue("@nacimiento", cliente.Nacimiento);
                         cmd.Parameters.AddWithValue("@direccion", cliente.Direccion);
                         cmd.Parameters.AddWithValue("@localidad", cliente.Localidad);
                         cmd.Parameters.AddWithValue("@provincia", cliente.Provincia);
@@ -45,9 +45,9 @@ namespace Data
                     conexion.Close();
                 }
                 catch (Exception ex)
-                {                    
+                {
                     //Se aplica Nlog
-                    logger.Error($"Error al insertar los datos {ex}");
+                    logger.Error($"Error al insertar los datos {ex.Message}");
                 }
             }
         }
@@ -63,7 +63,9 @@ namespace Data
 
                     SqlParameter nombre = new SqlParameter("nombre", System.Data.SqlDbType.VarChar) { Value = cliente.Nombre };
                     SqlParameter apellido = new SqlParameter("apellido", System.Data.SqlDbType.VarChar) { Value = cliente.Apellido };
+                    SqlParameter mail = new SqlParameter("mail", System.Data.SqlDbType.VarChar) { Value = cliente.Mail };
                     SqlParameter telefono = new SqlParameter("telefono", System.Data.SqlDbType.Int) { Value = cliente.Telefono };
+                    SqlParameter nacimiento = new SqlParameter("nacimiento", System.Data.SqlDbType.DateTime) { Value = cliente.Nacimiento };
                     SqlParameter direccion = new SqlParameter("direccion", System.Data.SqlDbType.VarChar) { Value = cliente.Direccion };
                     SqlParameter localidad = new SqlParameter("localidad", System.Data.SqlDbType.VarChar) { Value = cliente.Localidad };
                     SqlParameter provincia = new SqlParameter("provincia", System.Data.SqlDbType.VarChar) { Value = cliente.Provincia };
@@ -74,7 +76,9 @@ namespace Data
                     {
                         cmd.Parameters.Add(nombre);
                         cmd.Parameters.Add(apellido);
+                        cmd.Parameters.Add(mail);
                         cmd.Parameters.Add(telefono);
+                        cmd.Parameters.Add(nacimiento);
                         cmd.Parameters.Add(direccion);
                         cmd.Parameters.Add(localidad);
                         cmd.Parameters.Add(provincia);
@@ -92,7 +96,7 @@ namespace Data
                 }
                 catch (Exception ex)
                 {
-                    logger.Error($"No se pudo actualizar: {ex}");
+                    logger.Error($"No se pudo actualizar: {ex.Message}");
                 }
             }
             return resultado;
@@ -121,7 +125,7 @@ namespace Data
                 }
                 catch (Exception ex)
                 {
-                    logger.Error($"No se pudo eliminar el cliente: {ex}");
+                    logger.Error($"No se pudo eliminar el cliente: {ex.Message}");
                 }
             }
         }
@@ -151,7 +155,9 @@ namespace Data
                                     cliente.Id = Guid.Parse(reader["Id"].ToString());
                                     cliente.Nombre = reader["Nombre"].ToString();
                                     cliente.Apellido = reader["Apellido"].ToString();
+                                    cliente.Mail = reader["Mail"].ToString();
                                     cliente.Telefono = Convert.ToInt32(reader["Telefono"]);
+                                    cliente.Nacimiento = DateTime.Parse(reader["Nacimiento"].ToString());
                                     cliente.Direccion = reader["Direccion"].ToString();
                                     cliente.Localidad = reader["Localidad"].ToString();
                                     cliente.Provincia = reader["Provincia"].ToString();
@@ -166,7 +172,7 @@ namespace Data
                 }
                 catch (Exception ex)
                 {
-                    logger.Error($"No se pudo realizar la operación {ex}");
+                    logger.Error($"No se pudo realizar la operación {ex.Message}");
                 }
 
                 return clientes;

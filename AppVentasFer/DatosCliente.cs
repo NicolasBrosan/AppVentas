@@ -17,19 +17,22 @@ namespace AppVentasFer
         public frmDatosCliente()
         {
             InitializeComponent();
-        }
-
-        public Usuario Usuario { get; set; }
+        }        
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             Cliente cliente = new Cliente();
 
-            cliente.Id = Usuario.IdCliente;
+            cliente.Id = Guid.NewGuid();
             cliente.Nombre = txtNombre.Text;
             cliente.Apellido = txtApellido.Text;
+            cliente.Mail = txtMail.Text;
             cliente.Direccion = txtDireccion.Text;
             cliente.Localidad = txtLocalidad.Text;
             cliente.Provincia = txtProvincia.Text;
+            if(DateTime.TryParse(txtNacimiento.Text, out var nuevoNacimiento))
+            {
+                cliente.Nacimiento = nuevoNacimiento;
+            }
             if (int.TryParse(txtTelefono.Text, out var nuevoTelefono))
             {
                 cliente.Telefono = nuevoTelefono;
@@ -74,6 +77,15 @@ namespace AppVentasFer
             txtLocalidad.Text = string.Empty;
             txtProvincia.Text = string.Empty;
             txtTelefono.Text = string.Empty;
+
+        }
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            Limpiar();
+            this.Close();
+        }
+        private void tlpDatosCliente_Paint(object sender, PaintEventArgs e)
+        {
 
         }
     }

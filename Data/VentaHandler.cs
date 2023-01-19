@@ -9,12 +9,10 @@ namespace Data
 {
     public class VentaHandler
     {
-        ConnectionDB cnn = new ConnectionDB();
+        private readonly ConnectionDB cnn = new ConnectionDB();
 
         public void InsertVenta(List<Libro> libro, Venta venta)
-        {
-            var idVentas = 0;//Es necesario??
-
+        {            
             try
             {
                 using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
@@ -22,14 +20,12 @@ namespace Data
                     var queryVenta = QueryVenta.InsertVenta;
 
                     SqlParameter comentarios = new SqlParameter("Comentarios", System.Data.SqlDbType.VarChar) { Value = venta.Comentarios };
-                    SqlParameter idUsuario = new SqlParameter("IdUsuario", System.Data.SqlDbType.BigInt) { Value = venta.IdUsuario };
 
                     conexion.Open();
 
                     using (SqlCommand cmd = new SqlCommand(queryVenta, conexion))
                     {
                         cmd.Parameters.Add(comentarios);
-                        cmd.Parameters.Add(idUsuario);
 
                         int numberOfRows = cmd.ExecuteNonQuery();
                     }

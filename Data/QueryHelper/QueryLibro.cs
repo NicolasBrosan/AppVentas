@@ -6,7 +6,7 @@ namespace Data.QueryHelper
 {
     public static class QueryLibro
     {
-        public static string Insert { get; set; } = "INSERT INTO Libro (Nombre, Autor, Editorial, Sinopsis, Precio, Stock) VALUES (@nombre, @autor, @editorial, @sinopsis, @precio, @stock)";
+        public static string Insert { get; set; } = "INSERT INTO Libro (Nombre, Autor, Editorial, Genero, Costo, Precio, Stock, Caracteristicas) VALUES (@nombre, @autor, @editorial, @genero, @costo, @precio, @stock, @caracteristicas)";
 
         public static string Update { get; set; } = "UPDATE [DB_VentaLibros].[dbo].[Libro] SET Nombre = @nombre, Autor = @autor, Editorial = @editorial, Sinopsis = @sinopsis, Precio = @precio, Stock = @stock WHERE Id = @id";
 

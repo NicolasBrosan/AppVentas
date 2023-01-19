@@ -8,6 +8,6 @@ namespace Domain.Negocio
     {
         public int Id { get; set; }
         public string Comentarios { get; set; }
-        public int IdUsuario { get; set; }
+        public Guid IdCliente { get; set; }
     }
 }

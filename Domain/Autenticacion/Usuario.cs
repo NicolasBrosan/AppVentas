@@ -10,7 +10,6 @@ namespace Domain.Autenticacion
         public int Id { get; set; }
         public string Password { get; set; }
         public string Mail { get; set; }
-        public Guid IdCliente { get; set; }
 
     }
 }

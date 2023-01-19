@@ -4,11 +4,15 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using Data.Interface;
 using Data.QueryHelper;
+using Microsoft.Extensions.Logging;
+using NLog;
 
 namespace Data
 {
     public class LibroHandler : ICrud<Libro>
     {
+        Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         private readonly ConnectionDB cnn = new ConnectionDB();//Colocar private readonly
         public void Insert(Libro libro)
         {
@@ -21,9 +25,11 @@ namespace Data
                     SqlParameter nombre = new SqlParameter("Nombre", System.Data.SqlDbType.VarChar) { Value = libro.Nombre };
                     SqlParameter autor = new SqlParameter("Autor", System.Data.SqlDbType.VarChar) { Value = libro.Autor };
                     SqlParameter editorial = new SqlParameter("Editorial", System.Data.SqlDbType.VarChar) { Value = libro.Editorial };
-                    SqlParameter sinopsis = new SqlParameter("Sinopsis", System.Data.SqlDbType.VarChar) { Value = libro.Sinopsis };
+                    SqlParameter genero = new SqlParameter("Genero", System.Data.SqlDbType.VarChar) { Value = libro.Genero };
+                    SqlParameter costo = new SqlParameter("Costo", System.Data.SqlDbType.Decimal) { Value = libro.Costo };
                     SqlParameter precio = new SqlParameter("Precio", System.Data.SqlDbType.Decimal) { Value = libro.Precio };
                     SqlParameter stock = new SqlParameter("Stock", System.Data.SqlDbType.Int) { Value = libro.Stock };
+                    SqlParameter caracteristicas = new SqlParameter("Caracteristicas", System.Data.SqlDbType.VarChar) { Value = libro.Caracteristicas };
 
                     conexion.Open();
                     using (SqlCommand cmd = new SqlCommand(queryLibro, conexion))
@@ -31,9 +37,11 @@ namespace Data
                         cmd.Parameters.Add(nombre);
                         cmd.Parameters.Add(autor);
                         cmd.Parameters.Add(editorial);
-                        cmd.Parameters.Add(sinopsis);
+                        cmd.Parameters.Add(genero);
+                        cmd.Parameters.Add(costo);
                         cmd.Parameters.Add(precio);
                         cmd.Parameters.Add(stock);
+                        cmd.Parameters.Add(caracteristicas);
 
                         cmd.ExecuteNonQuery();
                     }
@@ -41,7 +49,7 @@ namespace Data
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"No se pudo insertar los datos: {ex.Message}");
+                    logger.Error($"No se pudo insertar los datos: {ex.Message}");
                 }
             }
         }
@@ -61,9 +69,11 @@ namespace Data
                         cmd.Parameters.AddWithValue("@nombre", libro.Nombre);
                         cmd.Parameters.AddWithValue("@autor", libro.Autor);
                         cmd.Parameters.AddWithValue("@editorial", libro.Editorial);
-                        cmd.Parameters.AddWithValue("@sinopsis", libro.Sinopsis);
+                        cmd.Parameters.AddWithValue("@genero", libro.Genero);
+                        cmd.Parameters.AddWithValue("@costo", libro.Costo);
                         cmd.Parameters.AddWithValue("@precio", libro.Precio);
                         cmd.Parameters.AddWithValue("@stock", libro.Stock);
+                        cmd.Parameters.AddWithValue("@caracteristicas", libro.Caracteristicas);
                         cmd.Parameters.AddWithValue("@id", libro.Id);
 
                         var numberOfRows = cmd.ExecuteNonQuery();
@@ -76,7 +86,7 @@ namespace Data
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"No se pudo actualizar: {ex.Message}");
+                    logger.Error($"No se pudo actualizar: {ex.Message}");
                 }
             }
             return resultado;
@@ -106,7 +116,7 @@ namespace Data
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"No se pudo eliminar lo solicitado: {ex.Message}");
+                    logger.Error($"No se pudo eliminar lo solicitado: {ex.Message}");
                 }
 
 
@@ -135,9 +145,11 @@ namespace Data
                                     libro.Nombre = reader["Nombre"].ToString();
                                     libro.Autor = reader["Autor"].ToString();
                                     libro.Editorial = reader["Editorial"].ToString();
-                                    libro.Sinopsis = reader["Sinopsis"].ToString();
+                                    libro.Genero = reader["Genero"].ToString();
+                                    libro.Costo = Convert.ToDecimal(reader["Costo"]);
                                     libro.Precio = Convert.ToDecimal(reader["Precio"]);
                                     libro.Stock = Convert.ToInt32(reader["Stock"]);
+                                    libro.Caracteristicas = reader["Caracteristicas"].ToString();
 
                                     libros.Add(libro);
                                 }
@@ -148,7 +160,7 @@ namespace Data
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"No es posible traer la informacion: {ex.Message}");
+                    logger.Error($"No es posible traer la informacion: {ex.Message}");
                 }
 
                 return libros;
@@ -181,9 +193,11 @@ namespace Data
                                     libro.Nombre = reader["Nombre"].ToString();
                                     libro.Autor = reader["Autor"].ToString();
                                     libro.Editorial = reader["Editorial"].ToString();
-                                    libro.Sinopsis = reader["Sinopsis"].ToString();
+                                    libro.Genero = reader["Genero"].ToString();
+                                    libro.Costo = Convert.ToDecimal(reader["Costo"]);
                                     libro.Precio = Convert.ToDecimal(reader["Precio"]);
                                     libro.Stock = Convert.ToInt32(reader["Stock"]);
+                                    libro.Caracteristicas = reader["Caracteristicas"].ToString();
 
                                     librosFiltrados.Add(libro);
 
@@ -199,7 +213,7 @@ namespace Data
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"No es posible realizar el filtrado: {ex.Message}");
+                    logger.Error($"No es posible realizar el filtrado: {ex.Message}");
 
                 }
 
@@ -230,7 +244,7 @@ namespace Data
                 catch (Exception ex)
                 {
 
-                    Console.WriteLine($"No se encontro el Id: {ex.Message}");
+                    logger.Error($"No se encontro el Id: {ex.Message}");
                 }
 
                 return libroId;

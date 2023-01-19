@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace AppVentasFer
 {
@@ -24,26 +25,33 @@ namespace AppVentasFer
             usuarioLogin.Mail = txtMailLogin.Text;
             usuarioLogin.Password = txtContraseñaLogin.Text;
 
-            ValidarNulo();
-            if (ValidarNulo())
+            if (ValidarMail(txtMailLogin.Text) == false)
             {
-                var usuarioService = new UsuariosService();
-                var log = usuarioService.LoginUsuario(usuarioLogin.Mail, usuarioLogin.Password);
-
+                MessageBox.Show("Formato de mail no válido!");
                 Limpiar();
-                if (!log)
+            }
+            else
+            {
+                if (ValidarNulo())
                 {
-                    MessageBox.Show("Los datos no se encuentran registrados. Por favor, hacer click en 'Registrarse' para acceder.");
-                }
-                else
-                {
-                    frmDatosCliente cliente = new frmDatosCliente();
-                    cliente.Show();
-                }
+                    var usuarioService = new UsuariosService();
+                    var log = usuarioService.LoginUsuario(usuarioLogin.Mail, usuarioLogin.Password);
 
+                    Limpiar();
+                    if (!log)
+                    {
+                        MessageBox.Show("Los datos no se encuentran registrados. Por favor, hacer click en 'Registrarse' para acceder.");
+                    }
+                    else
+                    {
+                        frmMenuPrincipal menuPrincipal = new frmMenuPrincipal();
+                        menuPrincipal.Show();
+                        
+                    }
+                }
 
             }
-
+            this.Hide();
         }
 
         private void btnRegistrar_Click(object sender, EventArgs e)
@@ -51,7 +59,6 @@ namespace AppVentasFer
             Usuario usuario = new Usuario();
             usuario.Mail = txtMailLogin.Text;
             usuario.Password = txtContraseñaLogin.Text;
-            usuario.IdCliente = Guid.NewGuid();
 
             var datosRepetidos = ValidarRepetido(usuario.Mail);
             if (datosRepetidos)
@@ -67,14 +74,10 @@ namespace AppVentasFer
             {
                 var usuarioService = new UsuariosService();
                 usuarioService.RegistrarUsuario(usuario);
+                MessageBox.Show("Se ha registrado exitosamente!");
                 Limpiar();
-                frmDatosCliente datosCliente = new frmDatosCliente();
-                datosCliente.Usuario = usuario;
-                datosCliente.Show();
-
-                this.Hide();
             }
-
+            
         }
         private void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -118,6 +121,26 @@ namespace AppVentasFer
             var validacionDelUsuario = usuarios.Any(usuarios => usuarios.Mail == mail);
 
             return validacionDelUsuario;
+        }
+        private bool ValidarMail(string verificoMail)
+        {
+            string emailFormato;
+            emailFormato = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+            if (Regex.IsMatch(verificoMail, emailFormato))
+            {
+                if (Regex.Replace(verificoMail, emailFormato, String.Empty).Length == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
 
     }

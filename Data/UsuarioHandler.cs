@@ -18,7 +18,7 @@ namespace Data
             {
                 try
                 {
-                    var queryInsertUsuario = "INSERT INTO Usuario (Password, Mail, IdCliente) VALUES (@password, @mail, @idCliente)";
+                    var queryInsertUsuario = "INSERT INTO Usuario (Password, Mail) VALUES (@password, @mail)";
 
                     conexion.Open();
 
@@ -26,7 +26,6 @@ namespace Data
                     {
                         cmd.Parameters.AddWithValue("@password", usuario.Password);
                         cmd.Parameters.AddWithValue("@mail", usuario.Mail);
-                        cmd.Parameters.AddWithValue("@idCliente", usuario.IdCliente);
 
                         int numberOfRows = cmd.ExecuteNonQuery();
                     }
@@ -103,7 +102,6 @@ namespace Data
                                     Usuario usuario = new Usuario();
                                     usuario.Mail = reader["Mail"].ToString();
                                     usuario.Password = reader["Password"].ToString();
-                                    usuario.IdCliente = Guid.Parse(reader["IdCliente"].ToString());
 
                                     usuarios.Add(usuario);
                                 }

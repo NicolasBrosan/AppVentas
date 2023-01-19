@@ -10,8 +10,10 @@ namespace Domain.Negocio
         public string Nombre { get; set; }
         public string Autor { get; set; }
         public string Editorial { get; set; }
-        public string Sinopsis { get; set; }
+        public string Genero { get; set; }
+        public decimal Costo { get; set; }
         public decimal Precio { get; set; }
         public int Stock { get; set; }
+        public string Caracteristicas { get; set; }
     }
 }
