@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmRegisterLibro));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.labelCaracteristicas = new System.Windows.Forms.Label();
             this.txtAutor = new System.Windows.Forms.TextBox();
@@ -80,7 +81,7 @@
             this.tableLayoutPanel1.Controls.Add(this.txtStock, 1, 7);
             this.tableLayoutPanel1.Controls.Add(this.txtCosto, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.txtPrecio, 1, 6);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(93, 12);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(54, 12);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 9;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
@@ -93,9 +94,8 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(701, 437);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(699, 437);
             this.tableLayoutPanel1.TabIndex = 0;
-            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
             // labelCaracteristicas
             // 
@@ -320,7 +320,7 @@
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.792F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnGuardar.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.btnGuardar.Location = new System.Drawing.Point(93, 546);
+            this.btnGuardar.Location = new System.Drawing.Point(70, 483);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(180, 48);
             this.btnGuardar.TabIndex = 10;
@@ -338,7 +338,7 @@
             this.btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnActualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.792F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnActualizar.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.btnActualizar.Location = new System.Drawing.Point(291, 546);
+            this.btnActualizar.Location = new System.Drawing.Point(311, 483);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(180, 48);
             this.btnActualizar.TabIndex = 11;
@@ -352,7 +352,7 @@
             this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.792F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnEliminar.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.btnEliminar.Location = new System.Drawing.Point(501, 546);
+            this.btnEliminar.Location = new System.Drawing.Point(555, 483);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(180, 48);
             this.btnEliminar.TabIndex = 12;
@@ -365,12 +365,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(873, 601);
+            this.ClientSize = new System.Drawing.Size(803, 545);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnActualizar);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmRegisterLibro";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "REGISTRO DE LIBROS";

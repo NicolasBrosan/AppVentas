@@ -13,7 +13,7 @@ namespace AppVentasFer
 {
     public partial class frmRegisterLibro : Form
     {
-        public frmRegisterLibro()
+        public frmRegisterLibro(Libro libro)
         {
             InitializeComponent();
         }
@@ -180,9 +180,5 @@ namespace AppVentasFer
             return validacionDeLibro;
         }
 
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
     }
 }

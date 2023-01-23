@@ -18,8 +18,7 @@ namespace AppVentasFer
 
         private void registrarLibroToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmRegisterLibro frmRegistarLibro = new frmRegisterLibro();
-            frmRegistarLibro.ShowDialog();
+            
         }
 
         private void registrarClienteToolStripMenuItem1_Click(object sender, EventArgs e)

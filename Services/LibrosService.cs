@@ -27,18 +27,17 @@ namespace Services
         {
             libroHandler.Delete(eliminarId);
         }
-        //Sobreescribo Get()
-        public List<Libro> ObtenerLibrosPorNombre(string filtro)
-        {              
-            var libros = ObtenerLibros();
-            var resultado = libros.Where(libro => libro.Nombre.Contains(filtro));
+        
+        public List<Libro> ObtenerLibrosPorNombre(string filtro)//Busco los datos por nombre
+        {
+            var libros = libroHandler.GetByName(filtro);
 
-            return resultado.ToList();
+            return libros.ToList();
         } 
         public Libro ObtenerLibroPorId(int id)
         {
             var libros = ObtenerLibros();
-            var resultado = libros.FirstOrDefault(libro => libro.Id == id);
+            var resultado = libros.Find(libro => libro.Id == id);
             return resultado;
         }
     }
