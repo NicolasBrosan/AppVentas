@@ -19,30 +19,34 @@ namespace AppVentasFer
 
         private void frmMuestrarioDeLibros_Load(object sender, EventArgs e)
         {
-            MostrarLibros();
+            MostrarLibrosFiltrados();
         }
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            MostrarLibros();
+            MostrarLibrosFiltrados();
         }
         private void dgvNuestrario_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow filaSeleccionada = dgvMuestrario.CurrentRow;
-            int id = Convert.ToInt32(filaSeleccionada.Cells["Id"].Value);
-            //int id = Convert.ToInt32(filaSeleccionada.Cells["Id"].Value);
+            var id = int.TryParse(filaSeleccionada.Cells["id"].Value.ToString(), out var resultado);//Saltea esta línea
             var libroSeleccionado = new LibrosService();
-            var unLibro = libroSeleccionado.ObtenerLibroPorId(id);
-            frmRegisterLibro infoLibro = new frmRegisterLibro(unLibro)
-            {
-                StartPosition = FormStartPosition.CenterScreen
-            };
-            infoLibro.ShowDialog();
+            var unLibro = libroSeleccionado.ObtenerLibroPorId(resultado);
+            frmRegisterLibro infoLibro = new frmRegisterLibro(unLibro);//Saltea esta línea
+            infoLibro.ShowDialog();//No muestra los datos solicitados
             MostrarLibros();
+
+
+
+        }
+        private void MostrarLibrosFiltrados()
+        {
+            var librosFiltrados = new LibrosService();
+            dgvMuestrario.DataSource = librosFiltrados.ObtenerLibrosPorNombre(txtFiltro.Text);
         }
         private void MostrarLibros()
         {
-            var muestraDeLibros = new LibrosService();
-            dgvMuestrario.DataSource = muestraDeLibros.ObtenerLibrosPorNombre(txtFiltro.Text);
+            var todosLosLibros = new LibrosService();
+            dgvMuestrario.DataSource = todosLosLibros.ObtenerLibros();
         }
     }
 }

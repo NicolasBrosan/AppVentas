@@ -36,9 +36,10 @@ namespace Services
         } 
         public Libro ObtenerLibroPorId(int id)
         {
-            var libros = ObtenerLibros();
-            var resultado = libros.Find(libro => libro.Id == id);
-            return resultado;
+            var libros = libroHandler.GetById(id);
+            var resultado = libros.Where(libro => libro.Id == id);
+
+            return resultado.FirstOrDefault();
         }
     }
 
