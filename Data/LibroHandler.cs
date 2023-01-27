@@ -223,7 +223,8 @@ namespace Data
 
         public List<Libro> GetById(int id)
         {
-            var libroId = new List<Libro>();
+            var libros = new List<Libro>();
+
             using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
             {
                 try
@@ -235,7 +236,29 @@ namespace Data
                     using (SqlCommand cmd = new SqlCommand(queryId, conexion))
                     {
                         cmd.Parameters.Add(bookId);
-                        cmd.ExecuteNonQuery();
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                while (reader.Read())
+                                {
+                                    Libro libro = new Libro();
+                                    libro.Id = Convert.ToInt32(reader["Id"]);
+                                    libro.Nombre = reader["Nombre"].ToString();
+                                    libro.Autor = reader["Autor"].ToString();
+                                    libro.Editorial = reader["Editorial"].ToString();
+                                    libro.Genero = reader["Genero"].ToString();
+                                    libro.Costo = Convert.ToDecimal(reader["Costo"]);
+                                    libro.Precio = Convert.ToDecimal(reader["Precio"]);
+                                    libro.Stock = Convert.ToInt32(reader["Stock"]);
+                                    libro.Caracteristicas = reader["Caracteristicas"].ToString();
+
+                                    libros.Add(libro);
+                                }
+                            }
+                        }
+
                     }
 
                     conexion.Close();
@@ -247,7 +270,7 @@ namespace Data
                     logger.Error($"No se encontro el Id: {ex.Message}");
                 }
 
-                return libroId;
+                return libros;
             }
 
         }

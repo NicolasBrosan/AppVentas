@@ -29,25 +29,25 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMuestrarioDeLibros));
-            this.dgvMuestrario = new System.Windows.Forms.DataGridView();
+            this.dgvTodosLosLibros = new System.Windows.Forms.DataGridView();
             this.txtFiltro = new System.Windows.Forms.TextBox();
             this.labelNombre = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMuestrario)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTodosLosLibros)).BeginInit();
             this.SuspendLayout();
             // 
-            // dgvMuestrario
+            // dgvTodosLosLibros
             // 
-            this.dgvMuestrario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMuestrario.Location = new System.Drawing.Point(12, 93);
-            this.dgvMuestrario.Name = "dgvMuestrario";
-            this.dgvMuestrario.ReadOnly = true;
-            this.dgvMuestrario.RowHeadersWidth = 53;
-            this.dgvMuestrario.RowTemplate.Height = 31;
-            this.dgvMuestrario.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvMuestrario.Size = new System.Drawing.Size(656, 318);
-            this.dgvMuestrario.TabIndex = 0;
-            this.dgvMuestrario.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvNuestrario_CellDoubleClick);
+            this.dgvTodosLosLibros.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTodosLosLibros.Location = new System.Drawing.Point(12, 93);
+            this.dgvTodosLosLibros.Name = "dgvTodosLosLibros";
+            this.dgvTodosLosLibros.ReadOnly = true;
+            this.dgvTodosLosLibros.RowHeadersWidth = 53;
+            this.dgvTodosLosLibros.RowTemplate.Height = 31;
+            this.dgvTodosLosLibros.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvTodosLosLibros.Size = new System.Drawing.Size(656, 318);
+            this.dgvTodosLosLibros.TabIndex = 0;
+            this.dgvTodosLosLibros.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTodosLosLibros_CellDoubleClick);
             // 
             // txtFiltro
             // 
@@ -87,12 +87,12 @@
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.labelNombre);
             this.Controls.Add(this.txtFiltro);
-            this.Controls.Add(this.dgvMuestrario);
+            this.Controls.Add(this.dgvTodosLosLibros);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMuestrarioDeLibros";
             this.Text = "frmMuestrarioDeLibros";
             this.Load += new System.EventHandler(this.frmMuestrarioDeLibros_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMuestrario)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTodosLosLibros)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -100,7 +100,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dgvMuestrario;
+        private System.Windows.Forms.DataGridView dgvTodosLosLibros;
         private System.Windows.Forms.TextBox txtFiltro;
         private System.Windows.Forms.Label labelNombre;
         private System.Windows.Forms.Button btnBuscar;

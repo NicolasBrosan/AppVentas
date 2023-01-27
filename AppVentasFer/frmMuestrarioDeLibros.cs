@@ -1,5 +1,6 @@
 ﻿using Domain.Negocio;
 using Services;
+using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,41 +13,42 @@ namespace AppVentasFer
 {
     public partial class frmMuestrarioDeLibros : Form
     {
+        private readonly frmRegisterLibro frmRegisterLibro;
         public frmMuestrarioDeLibros()
         {
+            frmRegisterLibro = new frmRegisterLibro();
             InitializeComponent();
         }
 
         private void frmMuestrarioDeLibros_Load(object sender, EventArgs e)
         {
-            MostrarLibrosFiltrados();
+            MostrarLibros();
         }
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             MostrarLibrosFiltrados();
-        }
-        private void dgvNuestrario_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        }        
+        
+        private void dgvTodosLosLibros_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewRow filaSeleccionada = dgvMuestrario.CurrentRow;
-            var id = int.TryParse(filaSeleccionada.Cells["id"].Value.ToString(), out var resultado);//Saltea esta línea
-            var libroSeleccionado = new LibrosService();
-            var unLibro = libroSeleccionado.ObtenerLibroPorId(resultado);
-            frmRegisterLibro infoLibro = new frmRegisterLibro(unLibro);//Saltea esta línea
-            infoLibro.ShowDialog();//No muestra los datos solicitados
-            MostrarLibros();
-
-
-
+            var filaSeleccionada = dgvTodosLosLibros.Rows[e.RowIndex].Cells["Id"].FormattedValue.ToString();
+            var libroService = new LibrosService();
+            int.TryParse(filaSeleccionada, out int id);
+            Libro libro = libroService.ObtenerLibroPorId(id);
+            frmRegisterLibro.cargarDatosLibro(libro);
+            frmRegisterLibro.ShowDialog();
         }
+
         private void MostrarLibrosFiltrados()
         {
             var librosFiltrados = new LibrosService();
-            dgvMuestrario.DataSource = librosFiltrados.ObtenerLibrosPorNombre(txtFiltro.Text);
+            dgvTodosLosLibros.DataSource = librosFiltrados.ObtenerLibrosPorNombre(txtFiltro.Text);
         }
         private void MostrarLibros()
         {
             var todosLosLibros = new LibrosService();
-            dgvMuestrario.DataSource = todosLosLibros.ObtenerLibros();
+            dgvTodosLosLibros.DataSource = todosLosLibros.ObtenerLibros();
         }
+
     }
 }

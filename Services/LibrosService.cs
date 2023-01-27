@@ -39,7 +39,7 @@ namespace Services
             var libros = libroHandler.GetById(id);
             var resultado = libros.Where(libro => libro.Id == id);
 
-            return resultado.FirstOrDefault();
+            return libros.FirstOrDefault();
         }
     }
 

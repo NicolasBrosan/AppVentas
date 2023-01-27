@@ -13,9 +13,22 @@ namespace AppVentasFer
 {
     public partial class frmRegisterLibro : Form
     {
-        public frmRegisterLibro(Libro libro)
+        
+        public frmRegisterLibro()
         {
-            InitializeComponent();
+            InitializeComponent();           
+        }
+        public void cargarDatosLibro(Libro libro)
+        {
+            txtCodigo.Text = libro.Id.ToString();
+            txtNombre.Text = libro.Nombre;
+            txtAutor.Text = libro.Autor;
+            txtEditorial.Text = libro.Editorial;
+            txtGenero.Text = libro.Genero;
+            txtCosto.Text = libro.Costo.ToString();
+            txtPrecio.Text = libro.Precio.ToString();
+            txtStock.Text = libro.Stock.ToString();
+            txtCaracteristicas.Text = libro.Caracteristicas;
         }
         private void btnGuardar_Click_1(object sender, EventArgs e)
         {
@@ -57,6 +70,7 @@ namespace AppVentasFer
             }
 
         }
+
         private void btnActualizar_Click_1(object sender, EventArgs e)
         {
             Libro libroactualizado = new Libro();
