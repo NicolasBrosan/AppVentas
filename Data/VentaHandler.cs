@@ -1,5 +1,6 @@
 ﻿using Data.QueryHelper;
 using Domain.Negocio;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -9,23 +10,26 @@ namespace Data
 {
     public class VentaHandler
     {
-        private readonly ConnectionDB cnn = new ConnectionDB();
+        Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        public void InsertVenta(List<Libro> libro, Venta venta)
-        {            
+        private readonly ConnectionDB cnn = new ConnectionDB();
+        
+        public void InsertVenta(List<Libro> libro, Venta venta)//Preguntar
+        { 
+            /*
             try
             {
                 using (SqlConnection conexion = new SqlConnection(cnn.CConnection("myConnection")))
                 {
                     var queryVenta = QueryVenta.InsertVenta;
 
-                    SqlParameter comentarios = new SqlParameter("Comentarios", System.Data.SqlDbType.VarChar) { Value = venta.Comentarios };
+                    //SqlParameter idCliente  
 
                     conexion.Open();
 
                     using (SqlCommand cmd = new SqlCommand(queryVenta, conexion))
                     {
-                        cmd.Parameters.Add(comentarios);
+                        cmd.Parameters.Add();
 
                         int numberOfRows = cmd.ExecuteNonQuery();
                     }
@@ -38,6 +42,7 @@ namespace Data
             {
                 Console.WriteLine($"No se pudo realizar la operacion: {ex.Message}");
             }
+            */
         }
 
         public void DeleteVenta(int id)
@@ -48,13 +53,13 @@ namespace Data
                 {
                     var queryDeleteVenta = QueryVenta.DeleteVenta;
 
-                    SqlParameter Id = new SqlParameter("Id", System.Data.SqlDbType.BigInt) { Value = id };
+                    SqlParameter idVenta = new SqlParameter("IdVenta", System.Data.SqlDbType.BigInt) { Value = id };
 
                     conexion.Open();
 
                     using (SqlCommand cmd = new SqlCommand(queryDeleteVenta, conexion))
                     {
-                        cmd.Parameters.Add(Id);
+                        cmd.Parameters.Add(idVenta);
                         int numberOfRows = cmd.ExecuteNonQuery();
                     }                                       
 
@@ -64,7 +69,7 @@ namespace Data
             catch (Exception ex)
             {
 
-                Console.WriteLine($"No se ha podido eliminar: {ex.Message}");
+                logger.Error($"No se ha podido eliminar: {ex.Message}");
             }
         }
     }

@@ -6,8 +6,9 @@ namespace Domain.Negocio
 {
     public class Venta
     {
-        public int Id { get; set; }
-        public string Comentarios { get; set; }
-        public Guid IdCliente { get; set; }
+        public int IdVenta { get; set; }
+        public Cliente IdCliente { get; set; }
+        public decimal TotalVenta { get; set; }
+        public List<DetalleVenta> DetalleVentas { get; set; }
     }
 }
